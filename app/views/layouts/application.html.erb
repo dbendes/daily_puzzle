@@ -8,40 +8,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-        <a class="navbar-brand" href="/">Daily Puzzle</a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-    <!-- for now, same nav logged in and not. eventually, remove -->
-        <li><a href="/contact">Contact</a></li>
-    <!-- DIFFERENT NAVS ON LOGGED IN AND NOT
-        <% if user_signed_in? %>
-          <li><a href="/concerts">My Concerts</a></li>
-          <li><a href="/concerts/new">New Concert</a></li>
-        <% else %>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        <% end %> -->
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <li><%= link_to 'Profile', edit_user_registration_path, :class => 'navbar-link' %></li> 
-  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li> 
-<% else %>
-  <li><%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %></li> 
-  <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li> 
-<% end %>
-    </div>
-  </div>
-</nav>
+  <%= render 'header' %>
 
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
@@ -49,16 +16,14 @@
 <% if alert %>
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
+
+
 <div class="wrap">
   <div class="container">
     <%= yield %>
   </div>
 </div>
-<div class="footer navbar-fixed-bottom navbar-default">
-  <div class="container">
-    <p class="text-center">Daily Puzzle</p>
-  </div>
-</div>
 
+<%= render 'footer' %>
 </body>
 </html>
