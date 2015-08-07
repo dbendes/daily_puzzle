@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   root 'static_pages#home'
-  get '/contact' => 'static_pages#contact'
+  get '/contact', to: 'static_pages#contact'
 
 #for authenticated users, give them the resources below  
  authenticate :user do
