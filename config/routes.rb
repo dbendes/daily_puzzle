@@ -1,26 +1,30 @@
 Rails.application.routes.draw do
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  
-  root to 'static_pages#home'
+  root 'static_pages#home'
   get '/contact' => 'static_pages#contact'
 
 #for authenticated users, give them the resources below  
  authenticate :user do
-    resources :games
-    resources :instructions
+   # resources :games
+   # resources :instructions
   end
   
   authenticated :user do
 # for authenticated users, their home page should be the games page
 #root to: "games#index", as: :authenticated_root, via: :get
+
+#for now, set it as the home static page
+  #root 'static_pages#home'
+ 
   end
 
   unauthenticated do
-    root 'static_pages#home'
+   # root 'static_pages#home'
   end
 
   # Example of regular route:
