@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
          
   has_many :games, through: :scores
   has_many :scores
+  
+  def full_name
+    self.first + " " + self.last
+  end
 end
