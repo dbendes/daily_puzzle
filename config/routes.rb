@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :scores
+  
 
   resources :instructions
 
@@ -11,26 +11,22 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'static_pages#home'
+  
   get '/contact', to: 'static_pages#contact'
 
 #for authenticated users, give them the resources below  
- authenticate :user do
-   # resources :games
-   # resources :instructions
-  end
-  
+
+
   authenticated :user do
 # for authenticated users, their home page should be the games page
 #root to: "games#index", as: :authenticated_root, via: :get
-
-#for now, set it as the home static page
-  #root 'static_pages#home'
+    resources :scores
+    root :to => 'games#index', as: :authenticated_root
  
   end
 
   unauthenticated do
-   # root 'static_pages#home'
+    root :to =>'static_pages#home'
   end
 
   # Example of regular route:

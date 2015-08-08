@@ -24,7 +24,9 @@ class ScoresController < ApplicationController
   # POST /scores
   # POST /scores.json
   def create
-    @score = Score.new(score_params)
+    
+    @user = current_user
+    @score = @user.scores.new(score_params)
 
     respond_to do |format|
       if @score.save
@@ -69,6 +71,6 @@ class ScoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.require(:score).permit(:value, :date, :game_id, :user_id)
+      params.require(:score).permit(:value, :game_id, :user_id, :date)
     end
 end

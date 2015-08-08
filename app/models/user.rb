@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :games, through: :scores
-  has_many :scores
+  has_many :scores, dependent: :destroy
   
   def full_name
     self.first + " " + self.last
