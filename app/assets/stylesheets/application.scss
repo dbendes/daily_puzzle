@@ -49,5 +49,28 @@ background-color:white;
 }
 
 .footer-min-height {
-    min-height:184px;
+    min-height:204px;
+}
+
+.carousel-indicators li {
+    border: 1px solid #2fa4e7;
+    // give the carousel brand primary colors if not selected
+}
+
+.carousel-indicators .active {
+    background-color: #2fa4e7;
+}
+
+@media (min-width: 768px) {
+  /* line 211, /usr/local/rvm/gems/ruby-2.2.1/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_type.scss */
+ .carousel-caption {
+     top: 50%;
+     padding-bottom: 0px;
+ }
+}
+
+.game-well {
+    padding: 0px;
+    margin-bottom:0px;
+    
 }

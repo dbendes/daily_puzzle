@@ -1,0 +1,23 @@
+<div class="panel-body">
+  <div class="well game-well">
+    <h3 class="text-center"><%= link_to "Try Today's Puzzle!", game, :class => "btn btn-success" %></h3>
+    <p class="text-center"><%= game.description %></p>
+  </div>
+  <!-- This is the implementation for a carousel image with a play button overlay
+  To do this, I'd need to either store a URL for each game image or store the image
+  <div id="carousel-game-<%= game.id %>" class="carousel-slide" data-ride="carousel" data-interval="false">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          While it would be nice to have a picture, we're going to launch with text for now and a centered well
+          <img src="http://www.productwiki.com/upload/images/set_game.jpg" alt="">
+          <div class="carousel-caption">
+            <div class="well game-well">
+            <h3><%= link_to 'Play', game, :class => "btn btn-success" %></h3>
+            <h4><%= game.description %></h4>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div> -->
+</div>
+        

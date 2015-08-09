@@ -1,0 +1,30 @@
+<div role="tabpanel" class="tab-pane" id="alltime-<%= game.id %>">
+          <% if game.top3_alltime.length > 0 %>
+      
+      
+            <table class="table table-condensed no-margin">
+              <thead>
+                <tr>
+                  <th style="width:10%">Rank</th>
+                  <th style="width:35%">Player</th>
+                  <th style="width:55%">Score</th>
+                </tr>
+              </thead>
+
+
+              <tbody>
+                <% game.top3_today.each_with_index do |leader, index| %>
+                  <tr>
+                    <td><%= ((index + 1)).ordinalize %></td>
+                    <td><%= leader.user.full_name %></td>
+                    <td><%= leader.format_long %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <div class="alert alert-dismissible alert-info text-center">
+              No one's played this game - the top spot is up for grabs!
+            </div>
+          <% end %>
+</div>

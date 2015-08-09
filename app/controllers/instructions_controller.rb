@@ -25,7 +25,7 @@ class InstructionsController < ApplicationController
   # POST /instructions.json
   def create
     @instruction = Instruction.new(instruction_params)
-
+    @instruction.game_id = instruction_params[:game]
     respond_to do |format|
       if @instruction.save
         format.html { redirect_to @instruction, notice: 'Instruction was successfully created.' }
@@ -69,6 +69,6 @@ class InstructionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instruction_params
-      params.require(:instruction).permit(:url, :description, :game)
+      params.require(:instruction).permit(:url, :description, :game_id)
     end
 end

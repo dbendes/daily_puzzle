@@ -24,7 +24,7 @@ class ScoresController < ApplicationController
   # POST /scores
   # POST /scores.json
   def create
-    
+
     @user = current_user
     @score = @user.scores.new(score_params)
     @games = Game.all

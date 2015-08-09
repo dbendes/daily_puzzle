@@ -1,0 +1,9 @@
+<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h2 class="white text-center"><%= game.name %></h2>
+        </div>
+        <%= render partial: 'gamebox_banner', locals: {game: game} %>
+        <%= render partial: 'gamebox_leaderboard', locals: {game: game} %>  
+      </div>
+    </div>
