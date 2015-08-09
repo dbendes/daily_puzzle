@@ -27,10 +27,23 @@ class ScoresController < ApplicationController
     
     @user = current_user
     @score = @user.scores.new(score_params)
+    @games = Game.all
+    score_string = score_params[:value]
+    score_array = score_string.split
+    if score_array.length == 1
+      score_int = score_array[0]
+    else
+      score_array = score_array.map {|x| Float(x) rescue nil }.compact
+      if score_array.length ==3
+        score_int = (score_array[0]*60*60) + (score_array[1]*60) + score_array[2]
+        score_int = score_int.round(2)
+      end
+    end
+    @score.value = score_int
 
     respond_to do |format|
       if @score.save
-        format.html { redirect_to @score, notice: 'Score was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Score was successfully created.' }
         format.json { render :show, status: :created, location: @score }
       else
         format.html { render :new }
