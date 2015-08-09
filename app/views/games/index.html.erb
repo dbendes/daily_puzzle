@@ -1,26 +1,44 @@
 <%= render 'jumbotron' %>
 
-<p id="notice"><%= notice %></p>
-
-
 <div class="row">
   <% @games.each do |game| %>
-     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <p class=""><%= game.name %></p>
+          <h2 class="white text-center"><%= game.name %></h2>
         </div>
         <div class="panel-body">
           <h3><%= game.description %></h3>
           <%= link_to 'Play', game, :class => "btn btn-success" %>
         </div>
         <div class = "panel-footer">
-          <h4>LEADERBOARD</h4>
-          <ul>
-          <% game.top3.each do |leader| %>
-              <li><%= leader.user.full_name %> - <%= leader.value %></li>
+          <h4 class="text-center">LEADERBOARD</h4>
+          <% if game.top3_today.length > 0 %>
+            <table class="table table-condensed no-margin">
+              <thead>
+                <tr>
+                  <th style="width:10%">Rank</th>
+                  <th style="width:35%">Player</th>
+                  <th style="width:55%">Score</th>
+                </tr>
+              </thead>
+
+
+              <tbody>
+                <% game.top3_today.each_with_index do |leader, index| %>
+                  <tr>
+                    <td><%= ((index + 1)).ordinalize %></td>
+                    <td><%= leader.user.full_name %></td>
+                    <td><%= leader.format_long %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <div class="alert alert-dismissible alert-info text-center">
+              No one's played today - the top spot is up for grabs!
+            </div>
           <% end %>
-          </ul>
         </div>
       </div>
     </div>

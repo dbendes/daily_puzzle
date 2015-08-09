@@ -21,3 +21,29 @@ body
 padding-top: 50px;
 background-color:white;
 }
+
+.white {
+    color: #ffffff;
+}
+
+// set the dl lists for the leaderboard to have auto width on small screens
+@media (min-width: 768px) {
+  /* line 211, /usr/local/rvm/gems/ruby-2.2.1/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_type.scss */
+  .dl-horizontal dt {
+    width: auto;
+    margin-right: 20px;
+  }
+  
+  .dl-horizontal dd {
+    margin-left: auto;
+  }
+}
+
+.place-badge {
+    min-width: 35px;
+    margin-right: 5px;
+}
+
+.no-margin {
+    margin: 0px;
+}
