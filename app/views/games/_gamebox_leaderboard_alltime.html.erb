@@ -1,7 +1,7 @@
 <div role="tabpanel" class="tab-pane" id="alltime-<%= game.id %>">
           <% if game.top3_alltime.length > 0 %>
-      
-      
+
+
             <table class="table table-condensed no-margin">
               <thead>
                 <tr>
@@ -13,7 +13,7 @@
 
 
               <tbody>
-                <% game.top3_today.each_with_index do |leader, index| %>
+                <% game.top3_alltime.each_with_index do |leader, index| %>
                   <tr>
                     <td><%= ((index + 1)).ordinalize %></td>
                     <td><%= leader.user.full_name %></td>
