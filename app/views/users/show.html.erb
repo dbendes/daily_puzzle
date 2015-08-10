@@ -1,0 +1,21 @@
+<div class="row top-row">
+    <div class="col-md-3">
+        <img src="http://www.protintutah.com/wp-content/uploads/2013/07/gravatar31.jpg">
+    </div>
+    <div class="col-md-5">
+        <h3><%= @user.full_name %></h3>
+        <p><strong>Member Since: </strong><%= @user.created_at.strftime("%m/%d/%Y") %></p>
+        <p><strong>Games Played: </strong><%= @user.scores.count %></p>
+    </div>
+    <div class="col-md-3">
+        <%# group info when we get there %>
+    </div>
+</div>
+
+<hr style="width: 100%; height: 1px; background-color:black;" />
+
+<div class = "row">
+  <% @games.each do |game| %>
+    <%= render partial: '/games/gamebox', locals: {game: game} %>
+  <% end %>
+</div>

@@ -3,7 +3,7 @@
         <div class="panel-heading">
           <h2 class="white text-center"><%= game.name %></h2>
         </div>
-        <%= render partial: 'gamebox_banner', locals: {game: game} %>
-        <%= render partial: 'gamebox_leaderboard', locals: {game: game} %>  
+        <%= render partial: '/games/gamebox_banner', locals: {game: game} %>
+        <%= render partial: '/games/gamebox_leaderboard', locals: {game: game} %>
       </div>
     </div>
