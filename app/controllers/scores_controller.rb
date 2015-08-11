@@ -30,23 +30,27 @@ class ScoresController < ApplicationController
     @games = Game.all
     score_string = score_params[:value]
     score_array = score_string.split
+    score_float = 0.0
+
+
+    score_array = score_array.map {|x| Float(x) rescue nil }.compact.reverse
     if score_array.length == 1
-      score_int = score_array[0]
+      score_float = (score_array[0]*100).round() / 100
     else
-      score_array = score_array.map {|x| Float(x) rescue nil }.compact
-      if score_array.length ==3
-        score_int = (score_array[0]*60*60) + (score_array[1]*60) + score_array[2]
-        score_int = score_int.round(2)
+      #reverse the score array so the lowest score, i.e. seconds, is first
+
+      score_array.each_with_index do | score, index |
+        score_float += ((score) * ( (60)**(index) ) )
       end
     end
-    @score.value = score_int
+    @score.value = score_float
 
     respond_to do |format|
       if @score.save
-        format.html { redirect_to root_path, notice: 'Score was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Thanks for playing!' }
         format.json { render :show, status: :created, location: @score }
       else
-        format.html { render :new }
+        format.html { redirect_to games_path, notice: "Sorry, you've already logged a score today." }
         format.json { render json: @score.errors, status: :unprocessable_entity }
       end
     end
