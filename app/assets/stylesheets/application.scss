@@ -19,6 +19,7 @@
 body
 {
 padding-top: 50px;
+padding-bottom: 30px;
 background-color:white;
 }
 
@@ -49,7 +50,7 @@ background-color:white;
 }
 
 .footer-min-height {
-    min-height:204px;
+    min-height:226px;
 }
 
 .carousel-indicators li {
@@ -72,6 +73,7 @@ background-color:white;
 .game-well {
     padding: 0px;
     margin-bottom:0px;
+    min-height: 100px;
 
 }
 
@@ -90,4 +92,9 @@ background-color:white;
 
 .caption h3 {
     color: #000000;
+}
+
+.not-really-disabled {
+    opacity: 1 !important;
+    cursor: default !important;
 }

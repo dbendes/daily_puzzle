@@ -47,7 +47,7 @@ class Score < ActiveRecord::Base
     if game == 1
       mins = (value/60.0).floor
       secs = value%60
-      mins.floor.round.to_s + " " + "min".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "sec".pluralize(secs)
+      mins.floor.round.to_s + " " + "m".pluralize(mins) + " and " + (secs).round(2).to_s + " " +  "s".pluralize(secs)
     # if game has a steps format, format as points
     elsif game ==2
       (value).round.to_s + " " + "step".pluralize(value)

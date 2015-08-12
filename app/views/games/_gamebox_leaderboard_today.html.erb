@@ -15,7 +15,7 @@
                 <% game.top3_today.each_with_index do |leader, index| %>
                   <tr>
                     <td><%= ((index + 1)).ordinalize %></td>
-                    <td><%= leader.user.full_name %></td>
+                    <td><%= leader.user.short_name %></td>
                     <td><%= leader.format_long %></td>
                   </tr>
                 <% end %>

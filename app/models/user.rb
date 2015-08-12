@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
     self.first + " " + self.last
   end
 
+  def short_name
+    self.first + " " + self.last.first
+  end
+
+
   def self.current
     Thread.current[:user]
   end
