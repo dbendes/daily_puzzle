@@ -46,7 +46,21 @@ class Game < ActiveRecord::Base
             total_score += score.value
             count += 1
         end
-        total_score / count
+        value = total_score / count
+        game = self.game_id
+        #if game has a time format, format as time
+        if game == 1
+          mins = (value/60.0).floor
+          secs = value%60
+          mins.floor.round.to_s + " " + "minute".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "second".pluralize(secs)
+        # if game has a steps format, format as points
+        elsif game ==2
+            (value).round.to_s + " " + "step".pluralize(value)
+        # if a game has a points format, format as points
+        elsif game == 3
+            (value.to_s) + " " + "points".pluralize(value)
+        end
+
     end
 
     def user_this_week_score
@@ -56,11 +70,39 @@ class Game < ActiveRecord::Base
             total_score += score.value
             count += 1
         end
-        total_score / count
+        value = total_score / count
+        game = self.game_id
+        #if game has a time format, format as time
+        if game == 1
+          mins = (value/60.0).floor
+          secs = value%60
+          mins.floor.round.to_s + " " + "minute".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "second".pluralize(secs)
+        # if game has a steps format, format as points
+        elsif game ==2
+            (value).round.to_s + " " + "step".pluralize(value)
+        # if a game has a points format, format as points
+        elsif game == 3
+            (value.to_s) + " " + "points".pluralize(value)
+        end
+
     end
 
     def user_today_score
-        self.user_today.first.value
+        value = self.user_today.first.value
+        game = self.game_id
+        #if game has a time format, format as time
+        if game == 1
+          mins = (value/60.0).floor
+          secs = value%60
+          mins.floor.round.to_s + " " + "minute".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "second".pluralize(secs)
+        # if game has a steps format, format as points
+        elsif game ==2
+            (value).round.to_s + " " + "step".pluralize(value)
+        # if a game has a points format, format as points
+        elsif game == 3
+            (value.to_s) + " " + "points".pluralize(value)
+        end
     end
+
 
 end
