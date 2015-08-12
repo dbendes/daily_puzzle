@@ -1,0 +1,34 @@
+<div role="tabpanel" class="tab-pane <% if not game_page %><%= 'active' %><% end %>" id="myscores-<%= game.id %>">
+          <% if game.user_ever.length > 0 %>
+
+            <table class="table table-condensed no-margin">
+              <thead>
+                <tr>
+                  <th style="width:35%">Type</th>
+                  <th style="width:65%">Score</th>
+                </tr>
+              </thead>
+
+
+              <tbody>
+                <tr>
+                    <td>Today:</td>
+                    <td><% if game.user_today.length >0 %><%= game.user_today_score %><% else %><%= "You haven't played today." %><% end %></td>
+
+                </tr>
+                <tr>
+                    <td>This Week:</td>
+                    <td><% if game.user_this_week.length >0 %><%= game.user_this_week_score %><% else %><%= "You haven't played this week." %><% end %></td>
+                </tr>
+                <tr>
+                    <td>This Year:</td>
+                    <td><%= game.user_alltime_score %></td>
+                </tr>
+              </tbody>
+            </table>
+          <% else %>
+            <div class="alert alert-dismissible alert-info text-center">
+              You've never played this game - why not give it a shot?
+            </div>
+          <% end %>
+</div>

@@ -30,13 +30,30 @@ class Score < ActiveRecord::Base
 
     #if game has a time format, format as time
     if game == 1
-      (value / 60).floor.to_s + ":" + value%60.to_s
+      (value.to_f / 60.to_f).floor.to_s + ":" + (value.to_f%60).to_s
     # if game has a steps format, format as points
     elsif game ==2
       value
     # if a game has a points format, format as points
     elsif game == 3
       value
+    end
+  end
+
+  def format_mid
+    game = self.game_id
+    value = self.value
+    #if game has a time format, format as time
+    if game == 1
+      mins = (value/60.0).floor
+      secs = value%60
+      mins.floor.round.to_s + " " + "min".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "sec".pluralize(secs)
+    # if game has a steps format, format as points
+    elsif game ==2
+      (value).round.to_s + " " + "step".pluralize(value)
+    # if a game has a points format, format as points
+    elsif game == 3
+      (value.to_s) + " " + "points".pluralize(value)
     end
   end
 

@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
+    @user = current_user
     @games = Game.all
 
   end
@@ -13,6 +14,7 @@ class GamesController < ApplicationController
   def show
     @score = Score.new
     @instructions = @game.instruction
+    @user = current_user
   end
 
   # GET /games/new
