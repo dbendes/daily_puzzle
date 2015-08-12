@@ -47,7 +47,7 @@ class Game < ActiveRecord::Base
             count += 1
         end
         value = total_score / count
-        game = self.game_id
+        game = self.id
         #if game has a time format, format as time
         if game == 1
           mins = (value/60.0).floor
@@ -71,7 +71,7 @@ class Game < ActiveRecord::Base
             count += 1
         end
         value = total_score / count
-        game = self.game_id
+        game = self.id
         #if game has a time format, format as time
         if game == 1
           mins = (value/60.0).floor
@@ -89,7 +89,7 @@ class Game < ActiveRecord::Base
 
     def user_today_score
         value = self.user_today.first.value
-        game = self.game_id
+        game = self.id
         #if game has a time format, format as time
         if game == 1
           mins = (value/60.0).floor
