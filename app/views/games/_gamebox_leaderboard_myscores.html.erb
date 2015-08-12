@@ -13,16 +13,16 @@
               <tbody>
                 <tr>
                     <td>Today:</td>
-                    <td><% if game.user_today.length >0 %><%= game.user_today_score %><% else %><%= "You haven't played today." %><% end %></td>
+                    <td><% if game.user_today.length >0 %><%= game.user_today_score.format_long %><% else %><%= "You haven't played today." %><% end %></td>
 
                 </tr>
                 <tr>
                     <td>This Week:</td>
-                    <td><% if game.user_this_week.length >0 %><%= game.user_this_week_score %><% else %><%= "You haven't played this week." %><% end %></td>
+                    <td><% if game.user_this_week.length >0 %><%= game.user_this_week_score.format_long %><% else %><%= "You haven't played this week." %><% end %></td>
                 </tr>
                 <tr>
                     <td>This Year:</td>
-                    <td><%= game.user_alltime_score %></td>
+                    <td><%= game.user_alltime_score.format_long %></td>
                 </tr>
               </tbody>
             </table>
