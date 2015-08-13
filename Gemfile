@@ -24,7 +24,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'jquery-validation-rails'
 gem 'rails_12factor', group: :production
 gem 'unicorn'
-
+gem 'figaro'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

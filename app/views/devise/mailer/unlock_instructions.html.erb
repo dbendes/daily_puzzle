@@ -1,7 +1,11 @@
-<p>Hello <%= @resource.email %>!</p>
+<p>Hi <%= @resource.first %>!</p>
 
-<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+<p>Your Daily Puzzle account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
 
 <p>Click the link below to unlock your account:</p>
 
 <p><%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token) %></p>
+<p>Thanks for playing!</p>
+
+<p>Dave and the Daily Puzzle Team</p>
+<p><%= link_to 'Daily Puzzle', root_path %></p>

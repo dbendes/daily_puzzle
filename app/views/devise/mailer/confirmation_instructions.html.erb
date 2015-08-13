@@ -1,5 +1,10 @@
-<p>Welcome <%= @email %>!</p>
+<p>Welcome to the Daily Puzzles, <%= @resource.first %>!</p>
 
 <p>You can confirm your account email through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>Thanks for playing!</p>
+
+<p>Dave and the Daily Puzzle Team</p>
+<p><%= link_to 'Daily Puzzle', root_path %></p>
