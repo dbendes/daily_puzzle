@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   end
 
   def short_name
-    self.first + " " + self.last.first
+    self.first + " " + self.last.first + "."
   end
 
 
