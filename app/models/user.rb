@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :games, through: :scores
   has_many :scores, dependent: :destroy
 
+  after_create :send_welcome_email
+
   def full_name
     self.first + " " + self.last
   end
@@ -23,4 +25,7 @@ class User < ActiveRecord::Base
     Thread.current[:user] = user
   end
 
+  def send_welcome_email
+    UserMailer.welcome_email.deliver
+  end
 end
