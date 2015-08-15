@@ -15,6 +15,6 @@
         <% else %>
           <%= render partial: '/games/gamebox_banner', locals: {game: game, big: big} %>
         <% end %>
-        <%= render partial: '/games/gamebox_leaderboard', locals: {game: game, big: big} %>
+        <%= render partial: '/games/gamebox_leaderboard', locals: {game: game, big: big, tooltip: tooltip} %>
       </div>
     </div>

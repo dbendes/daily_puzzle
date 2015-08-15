@@ -29,19 +29,25 @@ class ScoresController < ApplicationController
     @score = @user.scores.new(score_params)
     @games = Game.all
     score_string = score_params[:value]
-    score_array = score_string.split
+    @score.detail = score_string
+
     score_float = 0.0
 
+    if @score.game.id == 1
+      score_array = score_string.split
+      score_array = score_array.map {|x| Float(x) rescue nil }.compact.reverse
+      if score_array.length == 1
+        score_float = (score_array[0]*100).round() / 100
+      else
+        #reverse the score array so the lowest score, i.e. seconds, is first
 
-    score_array = score_array.map {|x| Float(x) rescue nil }.compact.reverse
-    if score_array.length == 1
-      score_float = (score_array[0]*100).round() / 100
-    else
-      #reverse the score array so the lowest score, i.e. seconds, is first
-
-      score_array.each_with_index do | score, index |
-        score_float += ((score) * ( (60)**(index) ) )
+        score_array.each_with_index do | score, index |
+          score_float += ((score) * ( (60)**(index) ) )
+        end
       end
+    else
+      score_array = score_string.split('->')
+      score_float = score_array.length
     end
     @score.value = score_float
 
@@ -55,6 +61,7 @@ class ScoresController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /scores/1
   # PATCH/PUT /scores/1.json
@@ -88,6 +95,6 @@ class ScoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.require(:score).permit(:value, :game_id, :user_id, :date)
+      params.require(:score).permit(:value, :game_id, :user_id, :date, :detail)
     end
 end

@@ -31,7 +31,7 @@
 <div class="container">
 <div class = "row">
   <% @games.each do |game| %>
-    <%= render partial: '/games/gamebox', locals: {game: game, big: false} %>
+    <%= render partial: '/games/gamebox', locals: {game: game, big: false, tooltip: game.detailed} %>
   <% end %>
 </div>
 </div>

@@ -5,9 +5,10 @@
   <thead>
     <tr>
       <th style="width:10%">Value</th>
+      <th style="width:30%">Value</th>
       <th style="width:20%">Date</th>
       <th style="width:10%">Game</th>
-      <th style="width:35%">User</th>
+      <th style="width:30%">User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
     <% @scores.each do |score| %>
       <tr>
         <td><%= score.value %></td>
+        <td><%= score.detail %></td>
         <td><%= score.date %></td>
         <td><%= score.game_id %></td>
         <td><%= User.find(score.user_id).full_name %></td>
