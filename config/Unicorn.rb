@@ -1,9 +1,7 @@
-worker_processes (ENV["WEB_CONCURRENCY"] || 3).to_i
-timeout (ENV["WEB_TIMEOUT"] || 5).to_i
+# config/unicorn.rb
+worker_processes 3
+timeout 30
 preload_app true
-
-run_sidekiq_in_this_thread = ENV["RACK_ENV"]=="development" ? false : true
-@sidekiq_pid = nil
 
 before_fork do |server, worker|
 
@@ -13,15 +11,8 @@ before_fork do |server, worker|
   end
 
   defined?(ActiveRecord::Base) and
-  ActiveRecord::Base.connection.disconnect!
-
-  if run_sidekiq_in_this_thread
-    p "starting Sidekiq w/ unicorn"
-    @sidekiq_pid ||= spawn("bundle exec sidekiq")
-    Rails.logger.info('Spawned sidekiq #{@sidekiq_pid}')
-  end
+    ActiveRecord::Base.connection.disconnect!
 end
-
 
 after_fork do |server, worker|
 
@@ -29,11 +20,6 @@ after_fork do |server, worker|
     puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to sent QUIT'
   end
 
-  if defined? ActiveRecord::Base
-    config = ActiveRecord::Base.configurations[Rails.env] ||
-      Rails.application.config.database_configuration[Rails.env]
-    config["reaping_frequency"] = (ENV["DB_REAPING_FREQUENCY"] || 10).to_i
-    config["pool"] = (ENV["DB_POOL"] || 2).to_i
-    ActiveRecord::Base.establish_connection(config)
-  end
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.establish_connection
 end
