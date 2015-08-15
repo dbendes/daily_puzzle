@@ -8,8 +8,8 @@
 
     <h4><%#= link_to 'How To Play', @game.instructions %></h4>
 </div>
+<div class="row collapse" id="pastescore">
 <div class="row">
-
 
   <!-- for now, no iframes - security risk!
     <iframe frameborder="0" height="520" sandbox="allow-forms allow-popups allow-same-origin allow-scripts" <#% if @game.id != 1 %> <#%= "scrolling=yes"; %> <#% else %> <#%= "scrolling=no" %> <#% end %> width="100%" src="<#%= @game.iframe %>">
@@ -17,30 +17,23 @@
   </iframe> -->
 
   <div class="col-md-6 col-md-offset-3">
-    <div class="collapse" id="pastescore">
+    <div class="">
       <div class="alert alert-dismissible alert-info text-center">
         <strong>Good Luck!</strong> Remember to paste your final score in the box below!
       </div>
     </div>
   </div>
 </div>
+
+
 <div class="row">
-
-
   <!-- for now, no iframes - security risk!
     <iframe frameborder="0" height="520" sandbox="allow-forms allow-popups allow-same-origin allow-scripts" <#% if @game.id != 1 %> <#%= "scrolling=yes"; %> <#% else %> <#%= "scrolling=no" %> <#% end %> width="100%" src="<#%= @game.iframe %>">
     <p>Your browser does not support iframes. Please <#%= link_to 'click here', @game.iframe %> to play!</p>
   </iframe> -->
 
-  <div class="col-md-6 col-md-offset-3">
-    <div class="collapse" id="howtoplay">
-      <h3>How To Play</h3>
-      <p><%= @instructions.description %></p>
-      <p>Have more questions? Check out the <%= link_to 'official rules', @instructions.url, :target => "_blank" %>.</p>
-    </div>
-  </div>
-</div>
-<div class="row">
+
+<div class="col-md-6 col-md-offset-3">
   <%= form_for @score, :html => {:class => 'form-inline text-center'} do |f| %>
   <% if @score.errors.any? %>
     <div id="error_explanation">
@@ -62,6 +55,20 @@
 
     <%= f.submit 'Submit', :class => 'btn btn-primary' %>
   <% end %>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+    <div class="collapse" id="howtoplay">
+      <h3>How To Play</h3>
+      <p><%= @instructions.description %></p>
+      <p>Have more questions? Check out the <%= link_to 'official rules', @instructions.url, :target => "_blank" %>.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+    <%= render partial: 'gamebox', locals: {game: @game, big: true} %>
 </div>
 
 

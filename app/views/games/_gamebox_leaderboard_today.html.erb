@@ -1,5 +1,5 @@
 <div role="tabpanel" class="tab-pane <% if game_page %><%= 'active' %><% end %>" id="daily-<%= game.id %>">
-          <% if game.top3_today.length > 0 %>
+          <% if game.top_today(3).length > 0 %>
 
             <table class="table table-condensed no-margin">
               <thead>
@@ -12,7 +12,12 @@
 
 
               <tbody>
-                <% game.top3_today.each_with_index do |leader, index| %>
+                <% if big %>
+                  <% score_list = game.top_today(20) %>
+                <% else %>
+                  <% score_list = game.top_today(3) %>
+                <% end %>
+                <% score_list.each_with_index do |leader, index| %>
                   <tr>
                     <td><%= ((index + 1)).ordinalize %></td>
                     <td><%= leader.user.short_name %></td>

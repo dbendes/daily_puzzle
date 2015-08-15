@@ -3,20 +3,13 @@ class Game < ActiveRecord::Base
     has_many :scores
     has_many :users, through: :scores
 
-    def top3_alltime
-        self.scores.order(value: :asc).first(3)
+    def top_alltime(number)
+        self.scores.order(value: :asc).first(number)
     end
 
-    def top5_alltime
-        self.scores.order(value: :asc).first(5)
-    end
 
-    def top3_today
-        self.scores.where(date: Date.today).order(value: :asc).first(3)
-    end
-
-    def top5_today
-        self.scores.where(date: Date.today).order(value: :asc).first(5)
+    def top_today(number)
+        self.scores.where(date: Date.today).order(value: :asc).first(number)
     end
 
     def scores_today

@@ -1,5 +1,5 @@
 <div role="tabpanel" class="tab-pane" id="alltime-<%= game.id %>">
-          <% if game.top3_alltime.length > 0 %>
+          <% if game.top_alltime(3).length > 0 %>
 
 
             <table class="table table-condensed no-margin">
@@ -15,7 +15,12 @@
               <tbody>
                 <% last_score = 0 %>
                 <% k = 0 %>
-                <% game.top3_alltime.each_with_index do |leader, index| %>
+                <% if big %>
+                  <% score_list = game.top_alltime(20) %>
+                <% else %>
+                  <% score_list = game.top_alltime(3) %>
+                <% end %>
+                <% score_list.each_with_index do |leader, index| %>
                   <tr>
                     <% if leader.value == last_score %>
                       <td><%= ((k)).ordinalize + ' (T)' %></td>
