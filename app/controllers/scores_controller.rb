@@ -4,7 +4,7 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.all..paginate(:page => params[:page], :per_page => 25)
+    @scores = Score.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 25)
   end
 
   # GET /scores/1
