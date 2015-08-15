@@ -1,5 +1,5 @@
 <div class="container">
-<h1>Listing Scores</h1>
+<h1>Big Score View</h1>
 
 <table>
   <thead>
@@ -31,3 +31,4 @@
 
 <%= link_to 'New Score', new_score_path %>
 </div>
+<%= will_paginate @links %>
