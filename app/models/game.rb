@@ -55,7 +55,7 @@ class Game < ActiveRecord::Base
           mins.floor.round.to_s + " " + "minute".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "second".pluralize(secs)
         # if game has a steps format, format as points
         elsif game ==2
-            (value).round.to_s + " " + "step".pluralize(value)
+            (value).to_s + " " + "step".pluralize(value)
         # if a game has a points format, format as points
         elsif game == 3
             (value.to_s) + " " + "points".pluralize(value)

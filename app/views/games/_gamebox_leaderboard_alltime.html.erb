@@ -5,17 +5,25 @@
             <table class="table table-condensed no-margin">
               <thead>
                 <tr>
-                  <th style="width:10%">Rank</th>
-                  <th style="width:35%">Player</th>
-                  <th style="width:55%">Score</th>
+                  <th style="width:15%">Rank</th>
+                  <th style="width:32%">Player</th>
+                  <th style="width:53%">Score</th>
                 </tr>
               </thead>
 
 
               <tbody>
+                <% last_score = 0 %>
+                <% k = 0 %>
                 <% game.top3_alltime.each_with_index do |leader, index| %>
                   <tr>
-                    <td><%= ((index + 1)).ordinalize %></td>
+                    <% if leader.value == last_score %>
+                      <td><%= ((k)).ordinalize + ' (T)' %></td>
+                    <% else %>
+                      <% k += 1 %>
+                      <td><%= ((k)).ordinalize %></td>
+                    <% end %>
+                    <% last_score = leader.value %>
                     <td><%= leader.user.short_name %></td>
                     <td><%= leader.format_long %></td>
                   </tr>
