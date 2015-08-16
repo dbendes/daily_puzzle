@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :games, through: :scores
   has_many :scores, dependent: :destroy
+  has_many :memberships, dependent: :destroy
+  has_many :groups, through: :memberships
 
   after_create :send_welcome_email
 
