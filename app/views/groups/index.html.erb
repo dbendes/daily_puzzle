@@ -10,7 +10,7 @@
   <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
     <ul class="nav nav-pills">
         <% @groups.each do |group| %>
-          <li class="active">
+          <li class="active group-list-badge">
             <%= link_to group  do %>
                     <%= group.name %> <span class="badge"><%= group.members %> <%= "player".pluralize(group.members) %></span>
             <% end %>
