@@ -9,7 +9,7 @@
 
 <div class="row">
   <% @games.each do |game| %>
-    <%= render partial: 'gamebox', locals: {game: game, big: false, tooltip: game.detailed} %>
+    <%= render partial: 'gamebox', locals: {game: game, big: false, tooltip: game.detailed, group_page: 0} %>
   <% end %>
 </div>
 

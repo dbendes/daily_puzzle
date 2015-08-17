@@ -7,8 +7,8 @@
             </ul>
             <div class = "tab-content">
 
-                <%= render partial: '/games/gamebox_leaderboard_today', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip} %>
-                <%= render partial: '/games/gamebox_leaderboard_alltime', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip} %>
+                <%= render partial: '/games/gamebox_leaderboard_today', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip, group_page: group_page} %>
+                <%= render partial: '/games/gamebox_leaderboard_alltime', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip, group_page: group_page} %>
                 <%= render partial: '/games/gamebox_leaderboard_myscores', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip} %>
             </div>
 </div>

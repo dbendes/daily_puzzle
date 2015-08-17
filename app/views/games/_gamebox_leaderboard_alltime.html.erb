@@ -1,12 +1,12 @@
 <div role="tabpanel" class="tab-pane" id="alltime-<%= game.id %>">
-          <% if game.top_alltime(3).length > 0 %>
+            <% if ( (group_page != 0) && (@group.top_alltime(3, game.id).length > 0) ) or (game.top_alltime(3).length > 0) %>
 
           <script>
-    $( document ).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    </script>
-            <table class="table table-condensed no-margin">
+            $( document ).ready(function() {
+              $('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+          <table class="table table-condensed no-margin">
               <thead>
                 <tr>
                   <th style="width:17%">Rank</th>
@@ -20,9 +20,17 @@
                 <% last_score = 0 %>
                 <% k = 0 %>
                 <% if big %>
-                  <% score_list = game.top_alltime(20) %>
+                  <% if group_page != 0 %>
+                    <% score_list = @group.top_alltime(10, game.id) %>
+                  <% else %>
+                    <% score_list = game.top_alltime(10) %>
+                  <% end %>
                 <% else %>
-                  <% score_list = game.top_alltime(3) %>
+                  <% if group_page != 0 %>
+                    <% score_list = @group.top_alltime(3, game.id) %>
+                  <% else %>
+                    <% score_list = game.top_alltime(3) %>
+                  <% end %>
                 <% end %>
                 <% score_list.each_with_index do |leader, index| %>
                   <tr>

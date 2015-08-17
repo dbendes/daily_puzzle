@@ -5,11 +5,16 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
+    @membership = Membership.new
   end
 
   # GET /groups/1
   # GET /groups/1.json
   def show
+        @group = Group.find(params[:id])
+        @users = @group.users.order(last: :asc)
+        @games = Game.all
+        @membership = Membership.new
   end
 
   # GET /groups/new

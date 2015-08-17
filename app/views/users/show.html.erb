@@ -40,7 +40,7 @@
 <div class="container">
 <div class = "row">
   <% @games.each do |game| %>
-    <%= render partial: '/games/gamebox', locals: {game: game, big: false, tooltip: game.detailed} %>
+    <%= render partial: '/games/gamebox', locals: {game: game, big: false, tooltip: game.detailed, group_page: 0} %>
   <% end %>
 </div>
 </div>

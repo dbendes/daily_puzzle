@@ -1,5 +1,5 @@
 <div role="tabpanel" class="tab-pane <% if game_page %><%= 'active' %><% end %>" id="daily-<%= game.id %>">
-          <% if game.top_today(3).length > 0 %>
+  <% if (group_page != 0 && @group.top_today(3, game.id).length > 0) or (game.top_today(3).length>0) %>
 
             <table class="table table-condensed no-margin">
               <thead>
@@ -13,9 +13,17 @@
 
               <tbody>
                 <% if big %>
-                  <% score_list = game.top_today(20) %>
+                  <% if group_page != 0 %>
+                    <% score_list = @group.top_today(10, game.id) %>
+                  <% else %>
+                    <% score_list = game.top_today(10) %>
+                  <% end %>
                 <% else %>
-                  <% score_list = game.top_today(3) %>
+                  <% if group_page != 0 %>
+                    <% score_list = @group.top_today(3, game.id) %>
+                  <% else %>
+                    <% score_list = game.top_today(3) %>
+                  <% end %>
                 <% end %>
                 <% score_list.each_with_index do |leader, index| %>
                   <tr>
@@ -26,9 +34,9 @@
                 <% end %>
               </tbody>
             </table>
-          <% else %>
+  <% else %>
             <div class="alert alert-dismissible alert-info text-center">
               No one's played today - the top spot is up for grabs!
             </div>
-          <% end %>
+  <% end %>
 </div>
