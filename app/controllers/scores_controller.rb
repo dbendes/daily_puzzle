@@ -33,13 +33,15 @@ class ScoresController < ApplicationController
 
     score_float = 0.0
 
-    if @score.game.id == 1
-      score_array = score_string.split
+    if @score.game.id == 1 or @score.game.id == 3
+      score_array = score_string.split(/[\s,:,.]/)
+      #take everything that maps to a float
+      #reverse the score array so the lowest score, i.e. seconds, is first
       score_array = score_array.map {|x| Float(x) rescue nil }.compact.reverse
       if score_array.length == 1
         score_float = (score_array[0]*100).round() / 100
       else
-        #reverse the score array so the lowest score, i.e. seconds, is first
+
 
         score_array.each_with_index do | score, index |
           score_float += ((score) * ( (60)**(index) ) )

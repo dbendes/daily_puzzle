@@ -46,7 +46,7 @@ class Game < ActiveRecord::Base
         value = (((100*total_score) / count) / 100).round(2)
         game = self.id
         #if game has a time format, format as time
-        if game == 1
+        if game == 1 or game ==3
           mins = (value/60.0).floor
           secs = value%60
           mins.floor.round.to_s + " " + "minute".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "second".pluralize(secs)
@@ -54,7 +54,7 @@ class Game < ActiveRecord::Base
         elsif game ==2
             (value).to_s + " " + "step".pluralize(value)
         # if a game has a points format, format as points
-        elsif game == 3
+        elsif game == 4
             (value.to_s) + " " + "points".pluralize(value)
         end
 
@@ -70,7 +70,7 @@ class Game < ActiveRecord::Base
         value = (((100*total_score) / count) / 100).round(2)
         game = self.id
         #if game has a time format, format as time
-        if game == 1
+        if game == 1 or game == 3
           mins = (value/60.0).floor
           secs = value%60
           mins.floor.round.to_s + " " + "minute".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "second".pluralize(secs)
@@ -78,7 +78,7 @@ class Game < ActiveRecord::Base
         elsif game ==2
             (value).round.to_s + " " + "step".pluralize(value)
         # if a game has a points format, format as points
-        elsif game == 3
+        elsif game == 4
             (value.to_s) + " " + "points".pluralize(value)
         end
 
@@ -88,7 +88,7 @@ class Game < ActiveRecord::Base
         value = self.user_today.first.value
         game = self.id
         #if game has a time format, format as time
-        if game == 1
+        if game == 1 or game == 3
           mins = (value/60.0).floor
           secs = value%60
           mins.floor.round.to_s + " " + "minute".pluralize(mins) + " " + (secs).round(2).to_s + " " +  "second".pluralize(secs)
@@ -96,7 +96,7 @@ class Game < ActiveRecord::Base
         elsif game ==2
             (value).round.to_s + " " + "step".pluralize(value)
         # if a game has a points format, format as points
-        elsif game == 3
+        elsif game == 4
             (value.to_s) + " " + "points".pluralize(value)
         end
     end
