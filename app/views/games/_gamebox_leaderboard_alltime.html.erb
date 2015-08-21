@@ -42,7 +42,7 @@
                     <% end %>
                     <% last_score = leader.value %>
                     <td><%= leader.user.short_name %></td>
-                    <td><% if tooltip %><a class="link-no-click" href='#' data-toggle=tooltip title="<%= leader.detail %>" data-placement="left"><%= leader.format_long %></a><% else %><%= leader.format_long %><% end %></td>
+                    <td><% if (tooltip and not leader.detail.empty?) %><a class="link-no-click" href='#' data-toggle=tooltip title="<%= leader.detail %>" data-placement="left"><%= leader.format_long %></a><% else %><%= leader.format_long %><% end %></td>
                   </tr>
                 <% end %>
               </tbody>
