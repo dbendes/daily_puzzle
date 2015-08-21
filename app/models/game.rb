@@ -29,7 +29,7 @@ class Game < ActiveRecord::Base
     end
 
     def user_this_week
-        self.scores.where(user_id: User.current.id).where(date: 1.week.ago.beginning_of_week..1.week.ago.end_of_week)
+        self.scores.where(user_id: User.current.id).where('created_at >= ?', 1.week.ago)
     end
 
     def user_alltime
