@@ -1,9 +1,9 @@
 <div class="container">
 <div class="row top-row">
-    <div class="col-md-3 col-sm-4 col-xs-6">
+    <div class="col-md-3 col-sm-4 col-xs-4 col-xs-offset-2 col-sm-offset-0 col-lg-3">
         <img src="http://www.protintutah.com/wp-content/uploads/2013/07/gravatar31.jpg">
     </div>
-    <div class="col-md-5 col-sm-4 col-xs-6">
+    <div class="col-md-3 col-sm-4 col-xs-6 col-lg-5">
         <h3><%= @user.full_name %></h3>
         <p><strong>Member Since: </strong><%= @user.created_at.strftime("%m/%d/%Y") %></p>
         <p><strong>Games Played: </strong><%= @user.scores.count %></p>
@@ -21,13 +21,13 @@
             <% end %>
         <% if @user == User.current %><p><strong><%= link_to 'Edit Profile', edit_user_registration_path %></strong></p><% end %>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="col-md-6 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0 col-lg-4">
         <h3>Groups</h3>
             <ul class="nav nav-pills">
             <% @user.groups.sort_by {|group| group.members }.each do | group | %>
                 <li class="active group-list-badge-profile">
                     <%= link_to group, :class=>"profile-group-item"  do %>
-                        <%= group.name %>
+                        <%= group.name %> <span class="badge hidden-sm"><%= group.members %> <%= "member".pluralize(group.members) %></span>
                     <% end %>
                 </li>
             <% end %>
