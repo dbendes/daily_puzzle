@@ -11,8 +11,6 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
-    <!-- for now, same nav logged in and not. eventually, remove -->
-
 
 <% if user_signed_in? %>
   <li><%= link_to 'Profile', user_path(current_user), :class => 'navbar-link' %></li>
