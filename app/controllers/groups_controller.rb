@@ -6,6 +6,7 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all.sort_by {|group| group.members}.reverse
     @membership = Membership.new
+    @user = User.current
   end
 
   # GET /groups/1
@@ -13,6 +14,7 @@ class GroupsController < ApplicationController
   def show
         @group = Group.find(params[:id])
         @users = @group.users.order(last: :asc)
+        @user = User.current
         @games = Game.all
         if @users.where(id: current_user.id).empty?
           @membership = Membership.new
