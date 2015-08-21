@@ -34,7 +34,11 @@ class ScoresController < ApplicationController
     score_float = 0.0
 
     if @score.game.id == 1 or @score.game.id == 3
-      score_array = score_string.split(/[\s,:,.]/)
+      if @score.game.id == 1
+        score_array = score_string.split(/[\s,:,.]/)
+      else
+        score_array = score_string.split(/[\s,:]/)
+      end
       #take everything that maps to a float
       #reverse the score array so the lowest score, i.e. seconds, is first
       score_array = score_array.map {|x| Float(x) rescue nil }.compact.reverse
