@@ -1,14 +1,22 @@
 <div class = "panel-footer footer-min-height">
             <h4 class="text-center"><% if current_page?(controller: 'users', action: 'show', id: current_user.id) %><%= "SCORES" %><% game_page = false %><% else %><%= "LEADERBOARD" %><% game_page = true %><% end %></h4>
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="<% if game_page %><%= 'active' %><% end %>"><a href="#daily-<%= game.id %>" aria-controls="daily-<%= game.id %>" role="tab" data-toggle="tab">Daily</a></li>
-                <li role="presentation"><a href="#alltime-<%= game.id %>" aria-controls="alltime-<%= game.id %>" role="tab" data-toggle="tab">All Time</a></li>
-                <li role="presentation" class="<% if not game_page %><%= 'active' %><% end %>"><a href="#myscores-<%= game.id %>" aria-controls="myscores-<%= game.id %>" role="tab" data-toggle="tab">My Scores</a></li>
+                <% if user > 0 %>
+                    <li role="presentation" class="<% if not game_page %><%= 'active' %><% end %>"><a href="#myalltime-<%= game.id %>" aria-controls="myalltime-<%= game.id %>" role="tab" data-toggle="tab">My Top Scores</a></li>
+                <% else %>
+                    <li role="presentation" class="<% if game_page %><%= 'active' %><% end %>"><a href="#daily-<%= game.id %>" aria-controls="daily-<%= game.id %>" role="tab" data-toggle="tab">Daily</a></li>
+                    <li role="presentation"><a href="#alltime-<%= game.id %>" aria-controls="alltime-<%= game.id %>" role="tab" data-toggle="tab">All Time</a></li>
+                <% end %>
+                <li role="presentation" class=""><a href="#myscores-<%= game.id %>" aria-controls="myscores-<%= game.id %>" role="tab" data-toggle="tab">My Stats</a></li>
             </ul>
             <div class = "tab-content">
+                <% if user > 0 %>
+                    <%= render partial: '/games/gamebox_leaderboard_myalltime', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip, group_page: group_page, user: user} %>
+                <% else %>
+                    <%= render partial: '/games/gamebox_leaderboard_today', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip, group_page: group_page} %>
+                    <%= render partial: '/games/gamebox_leaderboard_alltime', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip, group_page: group_page} %>
 
-                <%= render partial: '/games/gamebox_leaderboard_today', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip, group_page: group_page} %>
-                <%= render partial: '/games/gamebox_leaderboard_alltime', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip, group_page: group_page} %>
+                <% end %>
                 <%= render partial: '/games/gamebox_leaderboard_myscores', locals: {game: game, game_page: game_page, big: big, tooltip: tooltip} %>
             </div>
 </div>

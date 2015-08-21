@@ -2,25 +2,29 @@
 <div class="row top-row text-center">
     <div class="col-md-4 col-sm-4 col-xs-6 col-xs-offset-3 col-md-offset-4 col-sm-offset-4">
       <h2><%= @group.name %></h2>
-      <p> <%= @users.map { |user| user.full_name }.join ', ' %>.
+      <p><% if @users.length >0 %><%= @users.map { |user| user.full_name }.join ', ' %>.<% else %>No one has joined this group yet. Why not be the first?<% end %>
       </p>
-      <%= form_for(@membership) do |f| %>
-        <% if @membership.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
-            <ul>
-            <% @membership.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-            </ul>
+      <% if @users.where(id: current_user.id).empty? %>
+        <%= form_for(@membership) do |f| %>
+          <% if @membership.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+              <ul>
+              <% @membership.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="actions">
+            <%= f.hidden_field :role, :value => 0 %>
+            <%= f.hidden_field :group_id, :value => @group.id %>
+
+            <%= f.submit 'Join This Group', :class => 'btn btn-primary' %>
           </div>
         <% end %>
-        <div class="actions">
-          <%= f.hidden_field :role, :value => 0 %>
-          <%= f.hidden_field :group_id, :value => @group.id %>
-
-          <%= f.submit 'Join This Group', :class => 'btn btn-primary' %>
-        </div>
+      <% else %>
+        <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
       <% end %>
 
     </div>
@@ -31,7 +35,7 @@
 <div class="container">
 <div class = "row">
   <% @games.each do |game| %>
-    <%= render partial: '/games/gamebox', locals: {game: game, big: false, tooltip: game.detailed, group_page: @group.id} %>
+    <%= render partial: '/games/gamebox', locals: {game: game, big: false, tooltip: game.detailed, group_page: @group.id,  user: 0} %>
   <% end %>
 </div>
 </div>

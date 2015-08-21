@@ -24,6 +24,10 @@ class Game < ActiveRecord::Base
         self.scores.where(user_id: User.current.id)
     end
 
+    def user_top_ever(number)
+        self.scores.where(user_id: User.current.id).order(value: :asc).first(number)
+    end
+
     def user_this_week
         self.scores.where(user_id: User.current.id).where(date: 1.week.ago.beginning_of_week..1.week.ago.end_of_week)
     end
@@ -39,7 +43,7 @@ class Game < ActiveRecord::Base
             total_score += score.value
             count += 1
         end
-        value = total_score / count
+        value = (((100*total_score) / count) / 100).round(2)
         game = self.id
         #if game has a time format, format as time
         if game == 1
@@ -63,7 +67,7 @@ class Game < ActiveRecord::Base
             total_score += score.value
             count += 1
         end
-        value = total_score / count
+        value = (((100*total_score) / count) / 100).round(2)
         game = self.id
         #if game has a time format, format as time
         if game == 1

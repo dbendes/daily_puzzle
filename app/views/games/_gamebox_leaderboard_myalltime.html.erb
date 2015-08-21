@@ -1,0 +1,43 @@
+<div role="tabpanel" class="tab-pane <% if not game_page %><%= 'active' %><% end %>" id="myalltime-<%= game.id %>">
+          <% if game.user_ever.length > 0 %>
+
+            <script>
+            $( document ).ready(function() {
+              $('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+          <table class="table table-condensed no-margin">
+              <thead>
+                <tr>
+                  <th style="width:17%">Rank</th>
+                  <th style="width:30%">Date</th>
+                  <th style="width:53%">Score</th>
+                </tr>
+              </thead>
+
+
+              <tbody>
+                <% last_score = 0 %>
+                <% k = 0 %>
+                <% score_list = game.user_top_ever(3) %>
+                <% score_list.each_with_index do |leader, index| %>
+                  <tr>
+                    <% if leader.value == last_score %>
+                        <td><%= ((k)).ordinalize + ' (T)' %></td>
+                    <% else %>
+                        <% k += 1 %>
+                        <td><%= ((k)).ordinalize %></td>
+                    <% end %>
+                    <% last_score = leader.value %>
+                    <td><%= leader.date %></td>
+                    <td><% if tooltip %><a class="link-no-click" href='#' data-toggle=tooltip title="<%= leader.detail %>" data-placement="left"><%= leader.format_long %></a><% else %><%= leader.format_long %><% end %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <div class="alert alert-dismissible alert-info text-center">
+              You've never played this game - why not give it a shot?
+            </div>
+          <% end %>
+</div>
