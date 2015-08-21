@@ -9,63 +9,52 @@
     <h4><%#= link_to 'How To Play', @game.instructions %></h4>
 </div>
 <div class="row collapse" id="pastescore">
-<div class="row">
+  <div class="row">
 
-  <!-- for now, no iframes - security risk!
-    <iframe frameborder="0" height="520" sandbox="allow-forms allow-popups allow-same-origin allow-scripts" <#% if @game.id != 1 %> <#%= "scrolling=yes"; %> <#% else %> <#%= "scrolling=no" %> <#% end %> width="100%" src="<#%= @game.iframe %>">
-    <p>Your browser does not support iframes. Please <#%= link_to 'click here', @game.iframe %> to play!</p>
-  </iframe> -->
-
-  <div class="col-md-6 col-md-offset-3">
-    <div class="">
-      <div class="alert alert-dismissible alert-info text-center">
-        <strong>Good Luck!</strong> Remember to paste your final score in the box below!
+    <div class="col-md-6 col-md-offset-3">
+      <div class="">
+        <div class="alert alert-dismissible alert-info text-center">
+          <strong>Good Luck!</strong> Remember to paste your final score in the box below!
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<div class="row">
-  <!-- for now, no iframes - security risk!
-    <iframe frameborder="0" height="520" sandbox="allow-forms allow-popups allow-same-origin allow-scripts" <#% if @game.id != 1 %> <#%= "scrolling=yes"; %> <#% else %> <#%= "scrolling=no" %> <#% end %> width="100%" src="<#%= @game.iframe %>">
-    <p>Your browser does not support iframes. Please <#%= link_to 'click here', @game.iframe %> to play!</p>
-  </iframe> -->
+  <div class="row">
 
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for @score, :html => {:class => 'form-inline text-center'} do |f| %>
+        <% if @score.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@score.errors.count, "error") %> prohibited this Score from being saved:</h2>
+            <ul>
+              <% @score.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="field form-group">
+          <%= f.label :value, "How'd you do?" %>
+          <%= f.text_field :value, :class => "form-control" %>
+        </div>
+        <%= f.hidden_field :game_id, :value => @game.id %>
+        <%= f.hidden_field :date, :value => Date.today %>
 
-<div class="col-md-6 col-md-offset-3">
-  <%= form_for @score, :html => {:class => 'form-inline text-center'} do |f| %>
-  <% if @score.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@score.errors.count, "error") %> prohibited this Score from being saved:</h2>
-
-      <ul>
-      <% @score.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <%= f.submit 'Submit', :class => 'btn btn-primary' %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <div class="field form-group">
-      <%= f.label :value, "How'd you do?" %>
-      <%= f.text_field :value, :class => "form-control" %>
-    </div>
-    <%= f.hidden_field :game_id, :value => @game.id %>
-    <%= f.hidden_field :date, :value => Date.today %>
-
-    <%= f.submit 'Submit', :class => 'btn btn-primary' %>
-  <% end %>
-</div>
-
-<div class="col-md-6 col-md-offset-3">
-    <div class="collapse" id="howtoplay">
-      <h3>How To Play</h3>
-      <p><%= @instructions.description %></p>
-      <p>Have more questions? Check out the <%= link_to 'official rules', @instructions.url, :target => "_blank" %>.</p>
     </div>
   </div>
 </div>
+<div class="row collapse" id="howtoplay">
+  <div class="col-md-6 col-md-offset-3">
+      <h3>How To Play</h3>
+      <p><%= @instructions.description %></p>
+      <p>Have more questions? Check out the <%= link_to 'official rules', @instructions.url, :target => "_blank" %>.</p>
+  </div>
 </div>
+
 
 <div class="row">
     <%= render partial: 'gamebox', locals: {game: @game, big: true, tooltip: @game.detailed, group_page: 0,  user: 0} %>
