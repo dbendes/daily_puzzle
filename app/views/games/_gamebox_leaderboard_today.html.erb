@@ -29,7 +29,7 @@
                   <tr>
                     <td><%= ((index + 1)).ordinalize %></td>
                     <td><%= leader.user.short_name %></td>
-                    <td><% if (tooltip and not leader.detail.empty? and not leader.detail.null?) %><a class="link-no-click" href='#' data-toggle=tooltip title="<%= leader.detail %>" data-placement="left"><%= leader.format_long %></a><% else %><%= leader.format_long %><% end %></td>
+                    <td><% if (tooltip and not leader.detail.empty? and not leader.detail.nil?) %><a class="link-no-click" href='#' data-toggle=tooltip title="<%= leader.detail %>" data-placement="left"><%= leader.format_long %></a><% else %><%= leader.format_long %><% end %></td>
                   </tr>
                 <% end %>
               </tbody>
