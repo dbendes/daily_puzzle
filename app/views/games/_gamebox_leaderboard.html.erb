@@ -2,12 +2,12 @@
             <h4 class="text-center"><% if current_page?(controller: 'users', action: 'show', id: current_user.id) %><%= "SCORES" %><% game_page = false %><% else %><%= "LEADERBOARD" %><% game_page = true %><% end %></h4>
             <ul class="nav nav-tabs" role="tablist">
                 <% if user > 0 %>
-                    <li role="presentation" class="<% if not game_page %><%= 'active' %><% end %>"><a href="#myalltime-<%= game.id %>" aria-controls="myalltime-<%= game.id %>" role="tab" data-toggle="tab">My Top Scores</a></li>
+                    <li role="presentation" class='active'><a href="#myalltime-<%= game.id %>" aria-controls="myalltime-<%= game.id %>" role="tab" data-toggle="tab"><% if @user.id == User.current.id %>My<% else %><%= @user.first + "'s"%><% end %> Top Scores</a></li>
                 <% else %>
                     <li role="presentation" class="<% if game_page %><%= 'active' %><% end %>"><a href="#daily-<%= game.id %>" aria-controls="daily-<%= game.id %>" role="tab" data-toggle="tab">Daily</a></li>
                     <li role="presentation"><a href="#alltime-<%= game.id %>" aria-controls="alltime-<%= game.id %>" role="tab" data-toggle="tab">All Time</a></li>
                 <% end %>
-                <li role="presentation" class=""><a href="#myscores-<%= game.id %>" aria-controls="myscores-<%= game.id %>" role="tab" data-toggle="tab">My Stats</a></li>
+                <li role="presentation" class=""><a href="#myscores-<%= game.id %>" aria-controls="myscores-<%= game.id %>" role="tab" data-toggle="tab"><% if @user.id == User.current.id %>My<% else %><%= @user.first + "'s"%><% end %> Stats</a></li>
             </ul>
             <div class = "tab-content">
                 <% if user > 0 %>

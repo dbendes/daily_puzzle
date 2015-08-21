@@ -13,22 +13,22 @@
               <tbody>
                 <tr>
                     <td>Today:</td>
-                    <td><% if game.user_today.length >0 %><%= game.user_today_score %><% else %><%= "You haven't played today." %><% end %></td>
+                    <td><% if game.user_today.length >0 %><%= game.user_today_score %><% else %><% if @user.id == User.current.id %>You haven't<% else %><%= @user.first + " hasn't"  %><% end %> played today.<% end %></td>
 
                 </tr>
                 <tr>
                     <td>This Week:</td>
-                    <td><% if game.user_this_week.length >0 %><%= game.user_this_week_score %><% else %><%= "You haven't played this week." %><% end %></td>
+                    <td><% if game.user_this_week.length >0 %><%= game.user_this_week_score %><% else %><% if @user.id == User.current.id %>You haven't<% else %><%= @user.first + " hasn't"  %><% end %> played this week.<% end %></td>
                 </tr>
                 <tr>
                     <td>This Year:</td>
-                    <td><% if game.user_alltime_score.length > 0 %><%= game.user_alltime_score %><% else %><%= "You have never played this game" %><% end %></td>
+                    <td><% if game.user_alltime_score.length > 0 %><%= game.user_alltime_score %><% else %><% if @user.id == User.current.id %>You have<% else %><%= @user.first + " has"  %><% end %> never played this game.<% end %></td>
                 </tr>
               </tbody>
             </table>
           <% else %>
             <div class="alert alert-dismissible alert-info text-center">
-              You've never played this game - why not give it a shot?
+              <% if @user.id == User.current.id %>You have never played this game - why not give it a shot?<% else %><%= @user.first + " hasn't played this game yet."  %><% end %>
             </div>
           <% end %>
 </div>

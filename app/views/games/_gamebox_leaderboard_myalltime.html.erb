@@ -1,4 +1,4 @@
-<div role="tabpanel" class="tab-pane <% if not game_page %><%= 'active' %><% end %>" id="myalltime-<%= game.id %>">
+<div role="tabpanel" class="tab-pane <% if user > 0 %><%= 'active' %><% end %>" id="myalltime-<%= game.id %>">
           <% if game.user_ever.length > 0 %>
 
             <script>
@@ -37,7 +37,7 @@
             </table>
           <% else %>
             <div class="alert alert-dismissible alert-info text-center">
-              You've never played this game - why not give it a shot?
+              <% if @user.id == User.current.id %>You have never played this game - why not give it a shot?<% else %><%= @user.first + " hasn't played this game yet."  %><% end %>
             </div>
           <% end %>
 </div>
