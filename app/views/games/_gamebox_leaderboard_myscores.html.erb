@@ -1,5 +1,5 @@
 <div role="tabpanel" class="tab-pane" id="myscores-<%= game.id %>">
-          <% if game.user_ever.length > 0 %>
+          <% if game.user_ever(@user.id).length > 0 %>
 
             <table class="table table-condensed no-margin">
               <thead>
@@ -13,16 +13,16 @@
               <tbody>
                 <tr>
                     <td>Today:</td>
-                    <td><% if game.user_today.length >0 %><%= game.user_today_score %><% else %><% if @user.id == User.current.id %>You haven't<% else %><%= @user.first + " hasn't"  %><% end %> played today.<% end %></td>
+                    <td><% if game.user_today(@user.id).length >0 %><%= game.user_today_score(@user.id) %><% else %><% if @user.id == User.current.id %>You haven't<% else %><%= @user.first + " hasn't"  %><% end %> played today.<% end %></td>
 
                 </tr>
                 <tr>
                     <td>This Week:</td>
-                    <td><% if game.user_this_week.length >0 %><%= game.user_this_week_score %><% else %><% if @user.id == User.current.id %>You haven't<% else %><%= @user.first + " hasn't"  %><% end %> played this week.<% end %></td>
+                    <td><% if game.user_this_week(@user.id).length >0 %><%= game.user_this_week_score(@user.id) %><% else %><% if @user.id == User.current.id %>You haven't<% else %><%= @user.first + " hasn't"  %><% end %> played this week.<% end %></td>
                 </tr>
                 <tr>
                     <td>This Year:</td>
-                    <td><% if game.user_alltime_score.length > 0 %><%= game.user_alltime_score %><% else %><% if @user.id == User.current.id %>You have<% else %><%= @user.first + " has"  %><% end %> never played this game.<% end %></td>
+                    <td><% if game.user_alltime_score(@user.id).length > 0 %><%= game.user_alltime_score(@user.id) %><% else %><% if @user.id == User.current.id %>You have<% else %><%= @user.first + " has"  %><% end %> never played this game.<% end %></td>
                 </tr>
               </tbody>
             </table>

@@ -1,5 +1,5 @@
 <div role="tabpanel" class="tab-pane <% if user > 0 %><%= 'active' %><% end %>" id="myalltime-<%= game.id %>">
-          <% if game.user_ever.length > 0 %>
+          <% if game.user_ever(@user.id).length > 0 %>
 
             <script>
             $( document ).ready(function() {
@@ -19,7 +19,7 @@
               <tbody>
                 <% last_score = 0 %>
                 <% k = 0 %>
-                <% score_list = game.user_top_ever(3) %>
+                <% score_list = game.user_top_ever(3, @user.id) %>
                 <% score_list.each_with_index do |leader, index| %>
                   <tr>
                     <% if leader.value == last_score %>

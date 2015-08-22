@@ -16,30 +16,30 @@ class Game < ActiveRecord::Base
         self.scores.where(date: Date.today)
     end
 
-    def user_today
-        self.scores.where(user_id: User.current.id).where(date: Date.today)
+    def user_today(profile_id)
+        self.scores.where(user_id: profile_id).where(date: Date.today)
     end
 
-    def user_ever
-        self.scores.where(user_id: User.current.id)
+    def user_ever(profile_id)
+        self.scores.where(user_id: profile_id)
     end
 
-    def user_top_ever(number)
-        self.scores.where(user_id: User.current.id).order(value: :asc).first(number)
+    def user_top_ever(number, profile_id)
+        self.scores.where(user_id: profile_id).order(value: :asc).first(number)
     end
 
-    def user_this_week
-        self.scores.where(user_id: User.current.id).where('created_at >= ?', 1.week.ago)
+    def user_this_week(profile_id)
+        self.scores.where(user_id: profile_id).where('created_at >= ?', 1.week.ago)
     end
 
-    def user_alltime
-        self.scores.where(user_id: User.current.id)
+    def user_alltime(profile_id)
+        self.scores.where(user_id: profile_id)
     end
 
-    def user_alltime_score
+    def user_alltime_score(profile_id)
         total_score = 0.0
         count = 0.0
-        self.user_alltime.each do |score|
+        self.user_alltime(profile_id).each do |score|
             total_score += score.value
             count += 1
         end
@@ -60,10 +60,10 @@ class Game < ActiveRecord::Base
 
     end
 
-    def user_this_week_score
+    def user_this_week_score(profile_id)
         total_score = 0.0
         count = 0.0
-        self.user_this_week.each do |score|
+        self.user_this_week(profile_id).each do |score|
             total_score += score.value
             count += 1
         end
@@ -84,8 +84,8 @@ class Game < ActiveRecord::Base
 
     end
 
-    def user_today_score
-        value = self.user_today.first.value
+    def user_today_score(profile_id)
+        value = self.user_today(profile_id).first.value
         game = self.id
         #if game has a time format, format as time
         if game == 1 or game == 3
