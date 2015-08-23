@@ -2,7 +2,17 @@
 <div class="row top-row text-center">
     <div class="col-md-10 col-sm-10 col-xs-10 col-xs-offset-1 col-md-offset-1 col-sm-offset-1">
       <h2><%= @group.name %></h2>
-      <p><% if @users.length >0 %><%= @users.map { |user| user.full_name }.join ', ' %>.<% else %>No one has joined this group yet. Why not be the first?<% end %>
+      <p>
+        <% if @users.length >0 %>
+          <% if @users.include?(@user) %>
+            <%= @users.map { |user| user.full_name }.join ', ' %>.
+          <% else %>
+            <%= @users.map { |user| user.short_name }.join ', ' %>.
+          <% end %>
+
+      <% else %>
+        No one has joined this group yet. Why not be the first?
+      <% end %>
       </p>
       <% if @users.where(id: current_user.id).empty? %>
         <%= form_for(@membership) do |f| %>
