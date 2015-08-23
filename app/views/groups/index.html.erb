@@ -12,6 +12,9 @@
         <% @groups.each do |group| %>
           <li class="active group-list-badge">
             <%= link_to group  do %>
+                    <% if group.private %>
+                      <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                    <% end %>
                     <%= group.name %> <span class="badge"><%= group.members %> <%= "player".pluralize(group.members) %></span>
             <% end %>
           </li>
