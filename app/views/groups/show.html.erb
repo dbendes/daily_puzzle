@@ -119,7 +119,7 @@
           </div>
         <% end %>
       <% else %>
-        <% if @group.private and @users.where(memberships: {role: [2,0]}).include?(@user) %>
+        <% if @users.where(memberships: {role: [2,0]}).include?(@user) %>
           <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
         <% else %>
           <button class="btn btn-info disabled not-really-disabled">Your request to join is awaiting approval.</button>
