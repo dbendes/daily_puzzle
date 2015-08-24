@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
 
+
   after_create :send_welcome_email
 
   def full_name

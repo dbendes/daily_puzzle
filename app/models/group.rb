@@ -5,7 +5,7 @@ class Group < ActiveRecord::Base
     validates :name, uniqueness: :true
 
     def members
-        self.users.length
+        self.users.where(memberships: {role: [2,0]}).length
     end
 
     def top_alltime(number, game_id)

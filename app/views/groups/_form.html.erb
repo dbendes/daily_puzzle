@@ -1,25 +1,33 @@
-<%= form_for(@group) do |f| %>
-  <% if @group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
+<div class="container">
+  <div class="col-md-4 col-xs-8 col-xs-offset-2 col-md-offset-4">
+    <h3 class="text-center">Create a Group</h3>
+            <%= form_for(@group, html: { class: 'form-horizontal'}) do |f| %>
+              <% if @group.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-      <ul>
-      <% @group.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+                  <ul>
+                  <% @group.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <div class="field form-group">
+                <%= f.label "Group Name" %><br>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+              <div class="field form-group">
+                <div class="checkbox-no-left">
+                <%= f.check_box :private %>
+                <%= f.label "Private" %>
+
+                </div>
+            </div>
+             <div class="form-group actions">
+                <%= f.submit "Create", class: "btn btn-primary" %>
+            </div>
+            <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label "Private" %> <br />
-    <%= f.check_box :private %> <br />
-</div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

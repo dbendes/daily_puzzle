@@ -24,9 +24,19 @@ class MembershipsController < ApplicationController
   # POST /memberships
   # POST /memberships.json
   def create
-    @user = current_user
+    if membership_params[:user_id].blank?
+      @user = current_user
+    else
+       @user = User.find(membership_params[:user_id])
+
+    end
     @membership = @user.memberships.new(membership_params)
     @group = @membership.group
+    if @group.private == true
+      @membership.role = 1
+    else
+      @membership.role = 0
+    end
 
     respond_to do |format|
       if @membership.save
@@ -42,9 +52,11 @@ class MembershipsController < ApplicationController
   # PATCH/PUT /memberships/1
   # PATCH/PUT /memberships/1.json
   def update
+    @membership.role = 0
+    @group = @membership.group
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to @membership, notice: 'Membership was successfully updated.' }
+        format.html { redirect_to @group, notice: 'Membership was successfully updated.' }
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
@@ -59,7 +71,7 @@ class MembershipsController < ApplicationController
     @group = @membership.group
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to @group, notice: 'Membership was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -72,6 +84,6 @@ class MembershipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
-      params.require(:membership).permit(:type, :group_id, :user_id)
+      params.require(:membership).permit(:role, :group_id, :user_id)
     end
 end
