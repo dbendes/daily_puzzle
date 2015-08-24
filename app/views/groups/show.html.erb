@@ -1,7 +1,7 @@
 <div class="container">
 <div class="row top-row text-center">
     <div class="col-md-10 col-sm-10 col-xs-10 col-xs-offset-1 col-md-offset-1 col-sm-offset-1">
-      <% if @users.include?(@user) and not Membership.where(user_id: @user.id).where(group_id: @group.id).where(role: 2).empty?  %>
+      <% if @users.include?(@user) and not Membership.where(user_id: @user.id).where(group_id: @group.id).where(role: 2).empty? and Membership.where(group_id: @group.id).where(role: 1).length > 0 %>
         <div class="col-md-8 col-sm-8">
           <h2>
             <% if @group.private and not @users.include?(@user) %>
@@ -11,11 +11,11 @@
           </h2>
 
           <p class="text-center">
-        <% if @users.length >0 %>
-          <% if @users.include?(@user) %>
+        <% if @users.where(memberships: {role: [2,0]}).length >0 %>
+          <% if @users.where(memberships: {role: [2,0]}).include?(User.current) or not @group.private %>
             <%= @users.where(memberships: {role: [2,0]}).map { |user| user.full_name }.join ', ' %>.
           <% else %>
-            <%= @users.map { |user| user.short_name }.join ', ' %>.
+            <%= @group.members %> <%= "player".pluralize(@group.members) %>
           <% end %>
 
       <% else %>
@@ -49,7 +49,8 @@
       <% end %>
         </div>
         <div class="col-md-4 col-sm-4">
-              <h4>Requests to Join</h4>
+
+              <h4 class="text-center">Requests to Join</h4>
               <% Membership.where(group_id: @group.id).where(role: 1).each do |invite| %>
                           <%= form_for(invite) do |f| %>
                             <% if invite.errors.any? %>
@@ -85,10 +86,10 @@
 
         <p class="text-center">
         <% if @users.where(memberships: {role: [2,0]}).length >0 %>
-          <% if @users.include?(@user) %>
+          <% if @users.where(memberships: {role: [2,0]}).include?(User.current) or not @group.private %>
             <%= @users.where(memberships: {role: [2,0]}).map { |user| user.full_name }.join ', ' %>.
           <% else %>
-            <%= @users.where(memberships: {role: [2,0]}).map { |user| user.short_name }.join ', ' %>.
+            <%= @group.members %> <%= "player".pluralize(@group.members) %>
           <% end %>
 
       <% else %>
@@ -118,7 +119,11 @@
           </div>
         <% end %>
       <% else %>
-        <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
+        <% if @group.private and @users.where(memberships: {role: [2,0]}).include?(@user) %>
+          <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
+        <% else %>
+          <button class="btn btn-info disabled not-really-disabled">Your request to join is awaiting approval.</button>
+        <% end %>
       <% end %>
 
 

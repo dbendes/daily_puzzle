@@ -24,13 +24,17 @@
     <div class="col-md-6 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0 col-lg-4">
         <h3>Groups</h3>
             <ul class="nav nav-pills">
-            <% @user.groups.where(memberships: {role: [2,0]}).sort_by {|group| group.members }.reverse.each do | group | %>
+            <% @user.groups.where(memberships: {role: [2,1,0]}).sort_by {|group| group.members }.reverse.each do | group | %>
+
 
                 <li class="active group-list-badge-profile">
 
                     <%= link_to group, :class=>"profile-group-item"  do %>
                     <% if @user == User.current and Membership.where(group_id: group.id).where(user_id: @user.id).first.role == 2 %>
                       <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <% end %>
+                    <% if @user == User.current and Membership.where(group_id: group.id).where(user_id: @user.id).first.role == 1 %>
+                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     <% end %>
                         <%= group.name %> <span class="badge hidden-sm"><%= group.members %> <%= "member".pluralize(group.members) %></span>
                     <% end %>
