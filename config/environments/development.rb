@@ -40,9 +40,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
 #MAILER CONFIG
-  config.action_mailer.default_url_options = { host: 'https://dailypuzzle.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'https://dailypuzzles.herokuapp.com' }
 
-  Rails.application.routes.default_url_options[:host] = 'https://dailypuzzle.herokuapp.com'
+  Rails.application.routes.default_url_options[:host] = 'https://dailypuzzles.herokuapp.com'
 
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.perform_deliveries = true
