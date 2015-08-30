@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
     def request_to_join_group_email(membership)
         @group = Group.find(membership.group_id)
         @user = User.find(membership.user_id)
-        @admin = Membership.find(role: 2, group_id: group.id).first.user
-        mail(to: @admin.email, subject: "Daily Puzzles: Request to join " + group.name)
+        @admin = Membership.where(role: 2).where(group_id: @group.id).first.user
+        mail(to: @admin.email, subject: "Daily Puzzles: Request to join " + @group.name)
     end
 end
