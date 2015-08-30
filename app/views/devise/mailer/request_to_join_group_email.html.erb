@@ -1,0 +1,10 @@
+<p>Hi <%= @admin.first %>!</p>
+
+<p><%= @user.full_name %> has requested to join <%= @group.name %>, which you are an administrator of.</p>
+
+<p>To accept or deny <%= @user.first %>'s join request, please <%= link_to @group do %>go to the group's page<% end %>.</p>
+
+<p>Thanks for playing!</p>
+
+<p>Dave and the Daily Puzzles Team</p>
+<p><a href="https://www.dailypuzzl.es">Daily Puzzles</a></p>
