@@ -14,26 +14,8 @@ class UserMailer < ApplicationMailer
     protected
     def subject_for(key)
         if key.to_s == 'invitation_instructions'
-            puts "notsuper"
-            puts "notsuper"
-            puts "notsuper"
-            puts "notsuper"
-            puts "notsuper"
-            puts "notsuper"
-            puts "notsuper"
-            puts "notsuper"
-            I18n.t(resource.invited_by.full_name + " Invited You To Play the Daily Puzzles!")
+            resource.invited_by.full_name + " Invited You To Play the Daily Puzzles!"
         else
-            puts "super"
-            puts "super"
-            puts "super"
-            puts "super"
-            puts "super"
-            puts "super"
-            puts "super"
-            puts "super"
-            puts "super"
-            puts "super"
             return super
         end
     end
