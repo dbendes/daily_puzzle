@@ -13,25 +13,27 @@ class UserMailer < ApplicationMailer
 
     protected
     def subject_for(key)
-        puts key
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-        puts I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
-
         if key.to_s == 'invitation_instructions'
-                I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
+            puts "notsuper"
+            puts "notsuper"
+            puts "notsuper"
+            puts "notsuper"
+            puts "notsuper"
+            puts "notsuper"
+            puts "notsuper"
+            puts "notsuper"
+            I18n.t(resource.invited_by.full_name + " Invited You To Play the Daily Puzzles!")
         else
+            puts "super"
+            puts "super"
+            puts "super"
+            puts "super"
+            puts "super"
+            puts "super"
+            puts "super"
+            puts "super"
+            puts "super"
+            puts "super"
             return super
         end
     end
