@@ -1,0 +1,28 @@
+
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="inviteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+        <h4 class="modal-title text-center" id="inviteModalLabel">Invite a Friend</h4>
+      </div>
+       <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { class: 'form-horizontal', :method => :post} do |f| %>
+      <div class="modal-body">
+              <%= devise_error_messages! %>
+
+            <% resource.class.invite_key_fields.each do |field| -%>
+                <div class="field form-group">
+                  <p><%= f.label field %><br />
+                  <%= f.text_field field, class: "form-control" %></p>
+                </div>
+            <% end -%>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.button "Send Invitation", :class => 'btn btn-primary' %>
+    <% end %>
+      </div>
+    </div>
+  </div>
+</div>

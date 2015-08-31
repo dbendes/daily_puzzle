@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'pry'
 gem 'devise'
+gem 'devise_invitable'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'mechanize'
