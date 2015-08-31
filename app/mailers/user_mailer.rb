@@ -13,8 +13,9 @@ class UserMailer < ApplicationMailer
 
     protected
     def subject_for(key)
+        puts key
         if key.to_s == 'invitation_instructions'
-                I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.try(:first) || 'Someone')
+                I18n.t('devise.mailer.invitation_instructions.subject', :invited_by => resource.invited_by.full_name || 'Someone')
         else
             return super
         end
