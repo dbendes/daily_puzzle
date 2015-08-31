@@ -1,4 +1,5 @@
 class UserMailer < ApplicationMailer
+
     def welcome_email(user)
         @user = user
         mail(to: user.email, subject: 'Welcome to DailyPuzzl.es!')
@@ -9,4 +10,14 @@ class UserMailer < ApplicationMailer
         @admin = Membership.where(role: 2).where(group_id: @group.id).first.user
         mail(to: @admin.email, subject: "Daily Puzzles: Request to join " + @group.name)
     end
+
+    protected
+    def subject_for(key)
+        return super  unless key.to_s == 'invitation_instructions'
+
+        I18n.t('devise.mailer.invitation_instructions.subject',
+          :invited_by => resource.invited_by.try(:first) || 'Someone')
+    end
+
+
 end
