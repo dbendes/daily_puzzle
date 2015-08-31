@@ -1,8 +1,8 @@
 <p>Hi <%= @resource.email%>,</p>
 
-<p><%= @resource.invited_by.full_name %> thinks you're pretty smart and has challenged you to join them in solving the Daily Puzzles!</p>
+<p><%= @resource.invited_by.first %> thinks you're pretty smart and has challenged you to join them in solving the Daily Puzzles!</p>
 
-<p>Each weekday, there's a new set of puzzles.</p>
+<p>Each weekday, there's a new set of puzzles to try, and you can compete against your friends for the top scores.</p>
 
 <p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
 
