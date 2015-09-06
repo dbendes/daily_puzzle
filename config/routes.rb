@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   get '/contact', to: 'static_pages#contact'
+  get '/privacy', to: 'static_pages#privacy'
+  get '/termsofuse', to: 'static_pages#termsofuse'
 
 #for authenticated users, give them the resources below
 

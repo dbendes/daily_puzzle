@@ -1,7 +1,9 @@
 <div class="container">
 <div class="row top-row text-center">
     <div class="col-md-10 col-sm-10 col-xs-10 col-xs-offset-1 col-md-offset-1 col-sm-offset-1">
+
       <% if @users.include?(@user) and not Membership.where(user_id: @user.id).where(group_id: @group.id).where(role: 2).empty? and Membership.where(group_id: @group.id).where(role: 1).length > 0 %>
+      <% # user is admin %>
         <div class="col-md-8 col-sm-8">
           <h2>
             <% if @group.private and not @users.include?(@user) %>
@@ -96,6 +98,7 @@
         No one has joined this group yet. Why not be the first?
       <% end %>
       </p>
+
       <% if @users.where(id: current_user.id).empty? %>
         <%= form_for(@membership) do |f| %>
           <% if @membership.errors.any? %>
@@ -121,6 +124,7 @@
       <% else %>
         <% if @users.where(memberships: {role: [2,0]}).include?(@user) %>
           <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
+
         <% else %>
           <button class="btn btn-info disabled not-really-disabled">Your request to join is awaiting approval.</button>
         <% end %>

@@ -16,10 +16,10 @@ class GroupsController < ApplicationController
         @group = Group.find(params[:id])
         @users = @group.users.order(last: :asc)
         @user = User.current
+        @users_search = User.search(params[:search])
         @games = Game.all
         if @users.where(id: current_user.id).empty?
           @membership = Membership.new
-
         else
           @membership = Membership.where(user_id: current_user.id).where(group_id: @group.id)
         end
