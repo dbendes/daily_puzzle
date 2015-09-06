@@ -1,7 +1,13 @@
 <div class="container">
 <div class="row top-row text-center">
       <h2>Groups</h2>
-      <%= link_to 'Create a Group', new_group_path, :class => "btn btn-success" %>
+      <%= form_tag groups_path, :method => 'get', :class => "form-inline" do %>
+       <div class="field form-group">
+          <%= text_field_tag :search, params[:search], :class => "form-control", placeholder: "Find a Group" %>
+          <button class="btn btn-success" type="submit">Search</button>
+          <%= link_to 'Start a Group', new_group_path, :class => "btn btn-success" %>
+      <% end %>
+      </div>
 </div>
 </div>
 

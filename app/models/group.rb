@@ -17,4 +17,11 @@ class Group < ActiveRecord::Base
         self.scores.where(game_id: game_id).where(date: Date.today).order(value: :asc).first(number)
     end
 
+    def self.search(search)
+      if search
+        where('lower(name) LIKE ?', "%#{search.downcase}%")
+      else
+        Group.all
+      end
+    end
 end
