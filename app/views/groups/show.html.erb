@@ -13,44 +13,48 @@
           </h2>
 
           <p class="text-center">
-        <% if @users.where(memberships: {role: [2,0]}).length >0 %>
-          <% if @users.where(memberships: {role: [2,0]}).include?(User.current) or not @group.private %>
-            <%= @users.where(memberships: {role: [2,0]}).map { |user| user.full_name }.join ', ' %>.
+          <% if @users.where(memberships: {role: [2,0]}).length >0 %>
+            <% if @users.where(memberships: {role: [2,0]}).include?(User.current) or not @group.private %>
+              <%= @users.where(memberships: {role: [2,0]}).map { |user| user.full_name }.join ', ' %>.
+            <% else %>
+              <%= @group.members %> <%= "player".pluralize(@group.members) %>
+            <% end %>
+
           <% else %>
-            <%= @group.members %> <%= "player".pluralize(@group.members) %>
+            No one has joined this group yet. Why not be the first?
           <% end %>
 
-      <% else %>
-        No one has joined this group yet. Why not be the first?
-      <% end %>
-      </p>
-      <% if @users.where(id: current_user.id).empty? %>
-        <%= form_for(@membership) do |f| %>
-          <% if @membership.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
-              <ul>
-              <% @membership.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
+          <% #user join actions - if not in group, show membership. else (ie in group) show privacy-dependent join %>
+          <% if @users.where(id: current_user.id).empty? %>
+          <% # user is not in the group # %>
+            <%= form_for(@membership) do |f| %>
+              <% if @membership.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+                  <ul>
+                  <% @membership.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
               <% end %>
-              </ul>
-            </div>
-          <% end %>
-          <div class="actions">
-            <%= f.hidden_field :role, :value => 0 %>
-            <%= f.hidden_field :group_id, :value => @group.id %>
-            <% if @group.private %>
-              <%= f.submit 'Request to Join', :class => 'btn btn-primary' %>
-            <% else %>
-              <%= f.submit 'Join This Group', :class => 'btn btn-primary' %>
+              <div class="actions">
+                <%= f.hidden_field :role, :value => 0 %>
+                <%= f.hidden_field :group_id, :value => @group.id %>
+                <% if @group.private %>
+                  <%= f.submit 'Request to Join', :class => 'btn btn-primary' %>
+                <% else %>
+                  <%= f.submit 'Join This Group', :class => 'btn btn-primary' %>
+                <% end %>
+              </div>
             <% end %>
-          </div>
-        <% end %>
-      <% else %>
-        <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
-      <% end %>
+          <% else %>
+            <% #user is in the group, show button to leave %>
+            <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
+          <% end %>
         </div>
         <div class="col-md-4 col-sm-4">
+          <% # admin pane, should go in a modal on a button click %>
 
               <h4 class="text-center">Requests to Join</h4>
               <% Membership.where(group_id: @group.id).where(role: 1).each do |invite| %>
@@ -78,9 +82,19 @@
 
                 <% end %>
                 </div>
+              <% # end modal %>
+
+
+
+
+
+
+
       <% else %>
+      <% # user is not an admin %>
         <h2>
             <% if @group.private and not @users.include?(@user) %>
+              <% # if the group is private and the user isn't in it, show the lock %>
               <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
             <% end %>
             <%= @group.name %>
