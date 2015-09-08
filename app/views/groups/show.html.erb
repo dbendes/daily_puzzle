@@ -1,10 +1,7 @@
+<%= render 'groups/admin' %>
 <div class="container">
 <div class="row top-row text-center">
     <div class="col-md-10 col-sm-10 col-xs-10 col-xs-offset-1 col-md-offset-1 col-sm-offset-1">
-
-      <% if @users.include?(@user) and not Membership.where(user_id: @user.id).where(group_id: @group.id).where(role: 2).empty? and Membership.where(group_id: @group.id).where(role: 1).length > 0 %>
-      <% # user is admin %>
-        <div class="col-md-8 col-sm-8">
           <h2>
             <% if @group.private and not @users.include?(@user) %>
               <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
@@ -13,16 +10,18 @@
           </h2>
 
           <p class="text-center">
-          <% if @users.where(memberships: {role: [2,0]}).length >0 %>
-            <% if @users.where(memberships: {role: [2,0]}).include?(User.current) or not @group.private %>
-              <%= @users.where(memberships: {role: [2,0]}).map { |user| user.full_name }.join ', ' %>.
-            <% else %>
-              <%= @group.members %> <%= "player".pluralize(@group.members) %>
-            <% end %>
+            <% # member list %>
+            <% if @users.where(memberships: {role: [2,0]}).length >0 %>
+              <% if @users.where(memberships: {role: [2,0]}).include?(User.current) or not @group.private %>
+                <%= @users.where(memberships: {role: [2,0]}).map { |user| user.full_name }.join ', ' %>.
+              <% else %>
+                <%= @group.members %> <%= "player".pluralize(@group.members) %>
+              <% end %>
 
-          <% else %>
-            No one has joined this group yet. Why not be the first?
-          <% end %>
+            <% else %>
+              No one has joined this group yet. Why not be the first?
+            <% end %>
+          </p>
 
           <% #user join actions - if not in group, show membership. else (ie in group) show privacy-dependent join %>
           <% if @users.where(id: current_user.id).empty? %>
@@ -50,102 +49,28 @@
             <% end %>
           <% else %>
             <% #user is in the group, show button to leave %>
-            <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
-          <% end %>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <% # admin pane, should go in a modal on a button click %>
-
-              <h4 class="text-center">Requests to Join</h4>
-              <% Membership.where(group_id: @group.id).where(role: 1).each do |invite| %>
-                          <%= form_for(invite) do |f| %>
-                            <% if invite.errors.any? %>
-                              <div id="error_explanation">
-                                <h2><%= pluralize(invite.errors.count, "error") %> prohibited this membership from being saved:</h2>
-
-                                <ul>
-                                <% invite.errors.full_messages.each do |message| %>
-                                  <li><%= message %></li>
-                                <% end %>
-                                </ul>
-                              </div>
-                            <% end %>
-                            <%= f.hidden_field :group_id, :value => @group.id %>
-                            <div class="actions form-group">
-                              <%= invite.user.full_name %>
-                              <%= button_to "Approve", {:controller => :memberships, :action => 'update', :id => invite.id }, :method => :update, :class => "btn btn-xs btn-primary" %>
-
-                              <%= link_to 'Deny', invite, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-warning" %>
-                            </div>
-
-                          <% end %>
-
+            <div>
+              <div style="float:left">
+                <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
+              </div>
+                <% # check if user is an admin. if they are, show the admin button to load the modal %>
+              <div style="float:left">
+                <% if @users.include?(@user) and not Membership.where(user_id: @user.id).where(group_id: @group.id).where(role: 2).empty? %>
+                  <% # user is admin, show the button %>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminModal">Membership Requests</button>
                 <% end %>
-                </div>
-              <% # end modal %>
-
-
-
-
-
-
-
-      <% else %>
-      <% # user is not an admin %>
-        <h2>
-            <% if @group.private and not @users.include?(@user) %>
-              <% # if the group is private and the user isn't in it, show the lock %>
-              <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-            <% end %>
-            <%= @group.name %>
-          </h2>
-
-        <p class="text-center">
-        <% if @users.where(memberships: {role: [2,0]}).length >0 %>
-          <% if @users.where(memberships: {role: [2,0]}).include?(User.current) or not @group.private %>
-            <%= @users.where(memberships: {role: [2,0]}).map { |user| user.full_name }.join ', ' %>.
-          <% else %>
-            <%= @group.members %> <%= "player".pluralize(@group.members) %>
-          <% end %>
-
-      <% else %>
-        No one has joined this group yet. Why not be the first?
-      <% end %>
-      </p>
-
-      <% if @users.where(id: current_user.id).empty? %>
-        <%= form_for(@membership) do |f| %>
-          <% if @membership.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
-              <ul>
-              <% @membership.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-              <% end %>
-              </ul>
+              </div>
+              <div class="clear:both"></div>
             </div>
+
           <% end %>
-          <div class="actions">
-            <%= f.hidden_field :role, :value => 0 %>
-            <%= f.hidden_field :group_id, :value => @group.id %>
-            <% if @group.private %>
-              <%= f.submit 'Request to Join', :class => 'btn btn-primary' %>
-            <% else %>
-              <%= f.submit 'Join This Group', :class => 'btn btn-primary' %>
-            <% end %>
-          </div>
-        <% end %>
-      <% else %>
-        <% if @users.where(memberships: {role: [2,0]}).include?(@user) %>
-          <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
-
-        <% else %>
-          <button class="btn btn-info disabled not-really-disabled">Your request to join is awaiting approval.</button>
-        <% end %>
-      <% end %>
 
 
-      <% end %>
+
+
+
+
+
 
 
 

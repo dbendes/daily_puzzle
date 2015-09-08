@@ -1,0 +1,50 @@
+
+<div class="modal fade" id="groupAdminModal" tabindex="-1" role="dialog" aria-labelledby="groupAdminModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+        <h4 class="modal-title text-center" id="groupAdminModalLabel">Requests to Join</h4>
+      </div>
+       <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { class: 'form-horizontal', :method => :post} do |f| %>
+      <div class="modal-body">
+
+          <% if Membership.where(group_id: @group.id).where(role: 1).length > 0 %>
+                  <% Membership.where(group_id: @group.id).where(role: 1).each do |invite| %>
+                          <%= form_for(invite) do |f| %>
+                            <% if invite.errors.any? %>
+                              <div id="error_explanation">
+                                <h2><%= pluralize(invite.errors.count, "error") %> prohibited this membership from being saved:</h2>
+
+                                <ul>
+                                <% invite.errors.full_messages.each do |message| %>
+                                  <li><%= message %></li>
+                                <% end %>
+                                </ul>
+                              </div>
+                            <% end %>
+                            <%= f.hidden_field :group_id, :value => @group.id %>
+                            <div class="actions form-group">
+                              <%= invite.user.full_name %>
+                              <%= button_to "Approve", {:controller => :memberships, :action => 'update', :id => invite.id }, :method => :update, :class => "btn btn-xs btn-primary" %>
+
+                              <%= link_to 'Deny', invite, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-warning" %>
+                            </div>
+
+                          <% end %>
+
+                    <% end %>
+                <% else %>
+                    <h4 class="text-center">No membership requests awaiting approval.</h4>
+                <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

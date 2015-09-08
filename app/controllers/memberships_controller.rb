@@ -53,11 +53,15 @@ class MembershipsController < ApplicationController
   # PATCH/PUT /memberships/1
   # PATCH/PUT /memberships/1.json
   def update
+    old_role = @membership.role
     @membership.role = 0
     @group = @membership.group
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to @group, notice: 'Membership was successfully updated.' }
+        if old_role == 1
+        else
+          format.html { redirect_to @group, notice: 'Membership was successfully updated.' }
+        end
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
