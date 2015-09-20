@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :groups, through: :memberships
   has_many :invitations, :class_name => self.to_s, :as => :invited_by
 
- # after_create :send_welcome_email
+ after_create :add_to_groups
 
   def full_name
     self.first + " " + self.last
@@ -28,8 +28,13 @@ class User < ActiveRecord::Base
     Thread.current[:user] = user
   end
 
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver
+  def add_to_groups
+    invites = GroupInvite.where(email: self.email)
+    if invites
+                invites.each do |f|
+                    f.group.users << self
+                end
+    end
   end
 
 end

@@ -76,11 +76,15 @@
       </div>
       <hr>
       <div class="second-modal">
-        <h4 class="text-center">Awaiting Response</h4>
-          <% @groupinvites.each do |pending| %>
-            <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago</p>
-          <% end %>
-      </div>
+        <% if @groupinvites.length > 0 %>
+          <h4 class="text-center">Awaiting Response</h4>
+            <% @groupinvites.each do |pending| %>
+              <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago</p>
+            <% end %>
+        <% else %>
+          <h4>No Invitations Outstanding</h4>
+        <% end %>
+        </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <%= f.button "Send Invitation", :class => 'btn btn-primary' %>
