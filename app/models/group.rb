@@ -4,6 +4,7 @@ class Group < ActiveRecord::Base
     has_many :scores, through: :users
     validates :name, uniqueness: :true
 
+
     def members
         self.users.where(memberships: {role: [2,0]}).length
     end

@@ -8,7 +8,7 @@
       </div>
 
       <div class="modal-body">
-        <div class="row  modal-header">
+
 
           <% if Membership.where(group_id: @group.id).where(role: 1).length > 0 %>
                   <% Membership.where(group_id: @group.id).where(role: 1).each do |invite| %>
@@ -38,7 +38,6 @@
                 <% else %>
                     <h4 class="text-center">No membership requests awaiting approval.</h4>
                 <% end %>
-        </div>
 
 
       </div>
