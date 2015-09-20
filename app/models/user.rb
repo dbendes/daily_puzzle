@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
     if invites
                 invites.each do |f|
                     f.group.users << self
+                    f.destroy
                 end
     end
   end

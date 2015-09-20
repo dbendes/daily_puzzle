@@ -6,6 +6,7 @@ class RegistrationsEmailController < Devise::RegistrationsController
             if invites
                 invites.each do |f|
                     f.group.users << @user
+                    f.destroy
                 end
             end
             UserMailer.welcome_email(@user).deliver
