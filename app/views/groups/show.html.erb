@@ -56,6 +56,7 @@
                   <% # user is admin, show the button %>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminModal">Membership Requests</button>
                 <% end %>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminInviteModal">Invite a Friend</button>
                 <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary", :form_class => "form-inline" %>
               </div>
                 <% # check if user is an admin. if they are, show the admin button to load the modal %>

@@ -6,8 +6,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
         <h4 class="modal-title text-center" id="groupAdminModalLabel">Requests to Join</h4>
       </div>
-       <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { class: 'form-horizontal', :method => :post} do |f| %>
+
       <div class="modal-body">
+        <div class="row  modal-header">
 
           <% if Membership.where(group_id: @group.id).where(role: 1).length > 0 %>
                   <% Membership.where(group_id: @group.id).where(role: 1).each do |invite| %>
@@ -37,9 +38,44 @@
                 <% else %>
                     <h4 class="text-center">No membership requests awaiting approval.</h4>
                 <% end %>
+        </div>
+
+
+      </div>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="groupAdminInviteModal" tabindex="-1" role="dialog" aria-labelledby="groupAdminInviteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+        <h4 class="modal-title text-center" id="inviteModalLabel">Invite a Friend</h4>
+      </div>
+       <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { class: 'form-horizontal', :method => :post} do |f| %>
+      <div class="modal-body">
+              <%= devise_error_messages! %>
+
+            <% resource.class.invite_key_fields.each do |field| -%>
+                <div class="field form-group">
+                  <p><%= f.label field %><br />
+                  <%= f.text_field field, class: "form-control" %></p>
+                </div>
+            <% end -%>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.button "Send Invitation", :class => 'btn btn-primary' %>
     <% end %>
       </div>
     </div>
