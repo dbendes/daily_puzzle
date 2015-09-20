@@ -50,17 +50,15 @@
           <% else %>
             <% #user is in the group, show button to leave %>
             <div>
-              <div style="float:left">
-                <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary" %>
-              </div>
-                <% # check if user is an admin. if they are, show the admin button to load the modal %>
-              <div style="float:left">
+              <div>
+
                 <% if @users.include?(@user) and not Membership.where(user_id: @user.id).where(group_id: @group.id).where(role: 2).empty? %>
                   <% # user is admin, show the button %>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminModal">Membership Requests</button>
                 <% end %>
+                <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary", :form_class => "form-inline" %>
               </div>
-              <div class="clear:both"></div>
+                <% # check if user is an admin. if they are, show the admin button to load the modal %>
             </div>
 
           <% end %>
