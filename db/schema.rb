@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830235106) do
+ActiveRecord::Schema.define(version: 20150920195806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20150830235106) do
     t.datetime "updated_at",                  null: false
     t.boolean  "detailed",    default: false
   end
+
+  create_table "group_invites", force: :cascade do |t|
+    t.string   "email"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "group_invites", ["group_id"], name: "index_group_invites_on_group_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -95,6 +104,7 @@ ActiveRecord::Schema.define(version: 20150830235106) do
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "group_invites", "groups"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "scores", "games"

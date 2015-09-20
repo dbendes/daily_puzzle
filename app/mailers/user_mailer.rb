@@ -14,6 +14,13 @@ class UserMailer < ApplicationMailer
         end
     end
 
+    def group_invitation(user, group)
+        @group = group
+        @user = user
+        @admin = @group.memberships.where(role: 2).first.user
+        mail(to: @user.email, subject: "Daily Puzzles: Invitation to join " + @group.name)
+    end
+
     protected
     def subject_for(key)
         if key.to_s == 'invitation_instructions'

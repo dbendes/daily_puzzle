@@ -1,0 +1,48 @@
+<div class="modal fade" id="pendingInvitesModal" tabindex="-1" role="dialog" aria-labelledby="pendingInvitesModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+        <h4 class="modal-title text-center" id="inviteModalLabel">Pending Challenges</h4>
+      </div>
+
+      <div class="modal-body">
+            <% if @groupinvites.length > 0 %>
+                  <% @groupinvites.each do |invite| %>
+
+                          <%= form_for(invite) do |f| %>
+                              <% if invite.errors.any? %>
+                                <div id="error_explanation">
+                                  <h2><%= pluralize(invite.errors.count, "error") %> prohibited this group invite from being saved:</h2>
+
+                                  <ul>
+                                  <% invite.errors.full_messages.each do |message| %>
+                                    <li><%= message %></li>
+                                  <% end %>
+                                  </ul>
+                                </div>
+                              <% end %>
+                              <%= f.hidden_field :group_id, :value => invite.group.id %>
+                            <div class="actions form-group">
+                              <%= invite.group.name %>
+                              <%= button_to "Join Group", {:controller => :group_invites, :action => 'update', :id => invite.id }, :method => :update, :class => "btn btn-xs btn-primary" %>
+
+                              <%= link_to 'Ignore', invite, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-warning" %>
+                            </div>
+
+                          <% end %>
+
+                    <% end %>
+                <% else %>
+                    <h4 class="text-center">You have no unanswerred challenges.</h4>
+                <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

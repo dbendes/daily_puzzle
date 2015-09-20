@@ -2,6 +2,7 @@ class Group < ActiveRecord::Base
     has_many :memberships
     has_many :users, through: :memberships
     has_many :scores, through: :users
+    has_many :group_invites
     validates :name, uniqueness: :true
 
 

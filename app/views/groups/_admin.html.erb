@@ -61,6 +61,7 @@
         <h4 class="modal-title text-center" id="inviteModalLabel">Invite a Friend</h4>
       </div>
        <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { class: 'form-horizontal', :method => :post} do |f| %>
+       <%= f.hidden_field :group_id, :value => @group.id %>
       <div class="modal-body">
               <%= devise_error_messages! %>
 
@@ -68,9 +69,17 @@
                 <div class="field form-group">
                   <p><%= f.label field %><br />
                   <%= f.text_field field, class: "form-control" %></p>
+
                 </div>
             <% end -%>
 
+      </div>
+      <hr>
+      <div class="second-modal">
+        <h4 class="text-center">Awaiting Response</h4>
+          <% @groupinvites.each do |pending| %>
+            <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago</p>
+          <% end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

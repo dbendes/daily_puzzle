@@ -23,6 +23,7 @@ class GroupsController < ApplicationController
         else
           @membership = Membership.where(user_id: current_user.id).where(group_id: @group.id)
         end
+        @groupinvites = GroupInvite.where(group_id: @group.id)
   end
 
   # GET /groups/new
