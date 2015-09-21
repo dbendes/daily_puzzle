@@ -55,9 +55,10 @@ class GroupInvitesController < ApplicationController
   # DELETE /group_invites/1
   # DELETE /group_invites/1.json
   def destroy
+    @user = User.current
     @group_invite.destroy
     respond_to do |format|
-      format.html { redirect_to group_invites_url, notice: 'You did not accept the group invite.' }
+      format.html { redirect_to @user, notice: 'You did not accept the group invite.' }
       format.json { head :no_content }
     end
   end
