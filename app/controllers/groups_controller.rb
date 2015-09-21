@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
           @membership = Membership.where(user_id: current_user.id).where(group_id: @group.id)
         end
         @groupinvites = GroupInvite.where(group_id: @group.id)
-        @membershipinvites = @users.where.(first: '')
+        @membershipinvites = @users.where(first: '')
   end
 
   # GET /groups/new
