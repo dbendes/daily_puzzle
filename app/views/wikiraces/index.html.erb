@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Wikiraces</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th>Racedate</th>
+      <th>Start description</th>
+      <th>End description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wikiraces.each do |wikirace| %>
+      <tr>
+        <td><%= wikirace.start %></td>
+        <td><%= wikirace.end %></td>
+        <td><%= wikirace.racedate %></td>
+        <td><%= wikirace.start_description %></td>
+        <td><%= wikirace.end_description %></td>
+        <td><%= link_to 'Show', wikirace %></td>
+        <td><%= link_to 'Edit', edit_wikirace_path(wikirace) %></td>
+        <td><%= link_to 'Destroy', wikirace, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wikirace', new_wikirace_path %>

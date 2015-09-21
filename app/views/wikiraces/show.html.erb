@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @wikirace.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @wikirace.end %>
+</p>
+
+<p>
+  <strong>Racedate:</strong>
+  <%= @wikirace.racedate %>
+</p>
+
+<p>
+  <strong>Start description:</strong>
+  <%= @wikirace.start_description %>
+</p>
+
+<p>
+  <strong>End description:</strong>
+  <%= @wikirace.end_description %>
+</p>
+
+<%= link_to 'Edit', edit_wikirace_path(@wikirace) %> |
+<%= link_to 'Back', wikiraces_path %>

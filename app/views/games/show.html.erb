@@ -3,6 +3,10 @@
 <div class="row text-center">
     <h1><%= @game.name %></h1>
     <h5><%= @game.description %></h5>
+    <% if @game.id == 2 and not @wikirace.blank? %>
+      <% # ITS A WIKIRACE # %>
+      <p class="lead">Today's Wikirace is from <%= @wikirace.start %>, <%= @wikirace.start_description %>, to <%= @wikirace.end %>, <%= @wikirace.end_description %>.</p>
+    <% end %>
     <a class="btn btn-success btn" onclick="window.open('<%= @game.iframe %>', 'newwindow', <% if game.id==1 %>'width=670, height=500'<% else %>'width=850, height=800'<% end %> ); return false;" role="button"  data-toggle="collapse" href="#pastescore" aria-expanded="false" aria-controls="#pastescore">Try Today's Puzzle!</a>
     <a class="btn btn-info btn"  role="button" data-toggle="collapse" href="#howtoplay" aria-expanded="false" aria-controls="#howtoplay">Learn to Play!</a>
 

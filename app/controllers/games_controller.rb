@@ -16,6 +16,7 @@ class GamesController < ApplicationController
     @score = Score.new
     @instructions = @game.instruction
     @user = current_user
+    @wikirace = Wikirace.where(racedate: Date.today).first
   end
 
   # GET /games/new
