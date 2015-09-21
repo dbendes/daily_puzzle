@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
 
 
     def members
-        self.users.where(memberships: {role: [2,0]}).length
+        self.users.where(memberships: {role: [2,0]}).where.not(first: '').length
     end
 
     def top_alltime(number, game_id)

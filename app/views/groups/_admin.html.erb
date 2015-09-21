@@ -76,10 +76,13 @@
       </div>
       <hr>
       <div class="second-modal">
-        <% if @groupinvites.length > 0 %>
+        <% if @groupinvites.length + @membershipinvites.length > 0 %>
           <h4 class="text-center">Awaiting Response</h4>
             <% @groupinvites.each do |pending| %>
               <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago</p>
+            <% end %>
+            <% @membershipinvites.each do |pending| %>
+              <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago </p>
             <% end %>
         <% else %>
           <h4 class="text-center">No Invitations Outstanding</h4>
