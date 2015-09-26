@@ -16,6 +16,7 @@
 
 <%  if user_signed_in? %>
   <% # turn off the invite modal - people should invite from groups <li><a href="#inviteModal" data-toggle="modal" data-target="#inviteModal">Invite a Friend</a></li> %>
+  <li><%= link_to 'Games', games_path, :class => 'navbar-link' %></li>
   <li><%= link_to 'Profile', user_path(current_user), :class => 'navbar-link' %></li>
   <li><%= link_to 'Groups', groups_path, :class => 'navbar-link' %></li>
   <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>

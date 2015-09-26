@@ -1,5 +1,6 @@
 class WikiracesController < ApplicationController
   before_action :set_wikirace, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin
 
   # GET /wikiraces
   # GET /wikiraces.json

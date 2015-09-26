@@ -1,6 +1,7 @@
 class ScoresController < ApplicationController
   before_action :set_score, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :authorize_admin, only: [:show, :edit, :new, :update, :destroy, :index]
 
   # GET /scores
   # GET /scores.json

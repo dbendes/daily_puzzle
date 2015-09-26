@@ -1,5 +1,6 @@
 class GroupInvitesController < ApplicationController
   before_action :set_group_invite, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin, only: [:show, :edit, :update, :destroy, :index]
 
   # GET /group_invites
   # GET /group_invites.json

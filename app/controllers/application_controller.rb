@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
       User.current = current_user
     end
 
+    def authorize_admin
+        redirect_to :back, :status => 401 unless current_user.admin
+    rescue ActionController::RedirectBackError
+        redirect_to root_path
+    end
+        #redirects to previous page
 
     protected
 

@@ -1,6 +1,7 @@
 class InstructionsController < ApplicationController
   before_action :set_instruction, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :authorize_admin
 
   # GET /instructions
   # GET /instructions.json
