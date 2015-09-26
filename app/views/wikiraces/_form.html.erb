@@ -1,4 +1,7 @@
-<%= form_for(@wikirace) do |f| %>
+<div class="container">
+  <div class="col-md-4 col-xs-8 col-xs-offset-2 col-md-offset-4">
+
+<%= form_for(@wikirace, html: { class: 'form-horizontal'}) do |f| %>
   <% if @wikirace.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@wikirace.errors.count, "error") %> prohibited this wikirace from being saved:</h2>
@@ -11,27 +14,29 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group field">
     <%= f.label :start %><br>
-    <%= f.text_field :start %>
+    <%= f.text_field :start, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group field">
     <%= f.label :end %><br>
-    <%= f.text_field :end %>
+    <%= f.text_field :end, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group field">
     <%= f.label :racedate %><br>
-    <%= f.date_select :racedate %>
+    <%= f.date_select :racedate, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group field">
     <%= f.label :start_description %><br>
-    <%= f.text_area :start_description %>
+    <%= f.text_area :start_description, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group field">
     <%= f.label :end_description %><br>
-    <%= f.text_area :end_description %>
+    <%= f.text_area :end_description, class: "form-control" %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>
+</div>

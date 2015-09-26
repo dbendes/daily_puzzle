@@ -15,7 +15,7 @@
 <div class="row collapse" id="pastescore">
   <div class="row">
 
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3 text-center">
       <div class="">
         <div class="alert alert-dismissible alert-info text-center">
           <strong>Good Luck!</strong> Remember to paste your final score in the box below!
@@ -27,7 +27,7 @@
 
   <div class="row">
 
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3  text-center">
       <%= form_for @score, :html => {:class => 'form-inline text-center'} do |f| %>
         <% if @score.errors.any? %>
           <div id="error_explanation">
@@ -40,8 +40,7 @@
           </div>
         <% end %>
         <div class="field form-group">
-          <%= f.label :value, "How'd you do?" %>
-          <%= f.text_field :value, :class => "form-control" %>
+          <%= f.text_field :value, :class => "form-control", :placeholder => "How'd you do?" %>
         </div>
         <%= f.hidden_field :game_id, :value => @game.id %>
         <%= f.hidden_field :date, :value => Date.today %>
