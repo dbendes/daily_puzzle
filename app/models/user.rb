@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
     :styles => { :medium => "200x200>", :thumb => "100x100#" },
-    :default_url => ":s3_domain_url/public/images/:style/gravatar31.jpg",
     :url  => ":s3_domain_url",
+    :default_url => "/images/:style/gravatar31.jpg",
     :path => "public/avatars/:id/:style_:basename.:extension",
     :storage => :fog,
     :fog_credentials => {
