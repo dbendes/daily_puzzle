@@ -58,4 +58,15 @@ ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true
 }
 
+
+ config.paperclip_defaults = {
+      :storage => :fog,
+      :fog_credentials => {
+        :provider => "AWS",
+        :aws_access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+        :aws_secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+      },
+      :fog_directory => ENV["FOG_DIRECTORY"]
+    }
+
 end
