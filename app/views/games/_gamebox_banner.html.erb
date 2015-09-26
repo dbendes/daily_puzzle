@@ -1,12 +1,12 @@
 <div class="panel-body">
   <div class="well game-well">
     <h3 class="text-center">
-      <% if Score.where(:game_id => game.id).where(:user_id => current_user.id).where(:date => Date.today).first %>
-        <% @score = Score.where(:game_id => game.id).where(:user_id => current_user.id).where(:date => Date.today).first %>
-        <button class="btn btn-info disabled not-really-disabled">You completed today's puzzle in </br><%= @score.format_long %>!</button>
+      <% if Score.where(:game_id => game.id).where(:user_id => user.id).where(:date => Date.today).first %>
+        <% @score = Score.where(:game_id => game.id).where(:user_id => user.id).where(:date => Date.today).first %>
+        <button class="btn btn-info disabled not-really-disabled"><%= user.first %> completed today's puzzle in </br><%= @score.format_long %>!</button>
         </h3>
       <% else %>
-        <%= link_to "Try Today's Puzzle!", game, :class => "btn btn-success" %>
+        <button class="btn btn-info disabled not-really-disabled"><%= user.first %> hasn't played <%= game.name %> today.</button>
               </h3>
     <p class="text-center"><%= game.description %></p>
       <% end %>

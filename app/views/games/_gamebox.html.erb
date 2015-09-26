@@ -13,7 +13,7 @@
 
         <% if big %>
         <% else %>
-          <%= render partial: '/games/gamebox_banner', locals: {game: game, big: big} %>
+          <%= render partial: '/games/gamebox_banner', locals: {game: game, big: big, user: user} %>
         <% end %>
         <%= render partial: '/games/gamebox_leaderboard', locals: {game: game, big: big, tooltip: tooltip, group_page: group_page, user: user} %>
       </div>
