@@ -13,7 +13,7 @@
             <% # member list %>
             <% if @users.where(memberships: {role: [2,0]}).where.not(first: '').length > 0 %>
               <% if @users.where(memberships: {role: [2,0]}).where.not(first: '').include?(User.current) or not @group.private %>
-                <%= @users.where(memberships: {role: [2,0]}).where.not(first: '').map { |user| user.full_name }.join ', ' %>.
+                <%= raw(@users.where(memberships: {role: [2,0]}).where.not(first: '').map { |user| raw(link_to(user.full_name, user)) }.join ', ') %>.
               <% else %>
                 <%= @group.members %> <%= "player".pluralize(@group.members) %>
               <% end %>
