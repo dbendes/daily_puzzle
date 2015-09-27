@@ -23,7 +23,7 @@ class Group < ActiveRecord::Base
       if search
         where('lower(name) LIKE ?', "%#{search.downcase}%")
       else
-        Group.all
+        nil
       end
     end
 end
