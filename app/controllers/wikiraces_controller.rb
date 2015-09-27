@@ -29,7 +29,8 @@ class WikiracesController < ApplicationController
 
     respond_to do |format|
       if @wikirace.save
-        format.html { redirect_to @wikirace, notice: 'Wikirace was successfully created.' }
+        #if it saves, keep making more!
+        format.html { render :new, notice: 'Wikirace was successfully created.' }
         format.json { render :show, status: :created, location: @wikirace }
       else
         format.html { render :new }
