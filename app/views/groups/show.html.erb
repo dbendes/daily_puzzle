@@ -56,7 +56,15 @@
                   <% # user is admin, show the button %>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminModal">Membership Requests</button>
                 <% end %>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminInviteModal">Invite a Friend</button>
+                <% if @group.private and not Membership.where(user_id: @user.id).where(group_id: @group.id).where(role: 2).empty? %>
+                  <% # group is private, only admin should see the thing to invite %>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminInviteModal">Invite a Friend</button>
+                <% else %>
+                  <% if not @group.private %>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#groupAdminInviteModal">Invite a Friend</button>
+                  <% end %>
+                <% end %>
+                <% # public
                 <%= button_to "Leave Group", {:controller => :memberships, :action => 'destroy', :id => @membership.first.id }, :method => :delete, :class => "btn btn-primary", :form_class => "form-inline" %>
               </div>
                 <% # check if user is an admin. if they are, show the admin button to load the modal %>
