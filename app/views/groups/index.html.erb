@@ -37,6 +37,7 @@
 <div class="row top-row text-center">
   <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
     <ul class="nav nav-pills">
+      <% if not @groups.nil? %>
         <% @groups.each do |group| %>
           <li class="active group-list-badge">
             <%= link_to group  do %>
@@ -47,6 +48,7 @@
             <% end %>
           </li>
         <% end %>
+      <% end %>
     </ul>
   </div>
   </div>

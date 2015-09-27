@@ -20,10 +20,6 @@ class Group < ActiveRecord::Base
     end
 
     def self.search(search)
-      if search
         where('lower(name) LIKE ?', "%#{search.downcase}%")
-      else
-        nil
-      end
     end
 end

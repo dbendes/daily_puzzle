@@ -5,7 +5,11 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
+    if params[:search]
       @groups = Group.search(params[:search]).sort_by {|group| group.members}.reverse
+    else
+      @groups = nil
+    end
     @my_groups = User.current.groups
     @membership = Membership.new
     @user = User.current
