@@ -32,3 +32,24 @@
       </div>
 </div>
 </div>
+
+<div class="container">
+<div class="row top-row text-center">
+  <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+    <ul class="nav nav-pills">
+        <% @groups.each do |group| %>
+          <li class="active group-list-badge">
+            <%= link_to group  do %>
+                    <% if group.private %>
+                      <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                    <% end %>
+                    <%= group.name %> <span class="badge"><%= group.members %> <%= "player".pluralize(group.members) %></span>
+            <% end %>
+          </li>
+        <% end %>
+    </ul>
+  </div>
+  </div>
+</div>
+</div>
+</div>
