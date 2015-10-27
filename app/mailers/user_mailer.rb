@@ -21,6 +21,11 @@ class UserMailer < ApplicationMailer
         mail(to: @user.email, subject: "Daily Puzzles: Invitation to join " + @group.name)
     end
 
+    def daily_email(user)
+        @user = user
+        mail(to: @user.email, subject: "The Daily Puzzles")
+    end
+
     protected
     def subject_for(key)
         if key.to_s == 'invitation_instructions'
@@ -30,8 +35,6 @@ class UserMailer < ApplicationMailer
         end
     end
 
-    def daily_email(user)
-        mail(to: user.email, subject: "The Daily Puzzles")
-    end
+
 
 end
