@@ -30,4 +30,8 @@ class UserMailer < ApplicationMailer
         end
     end
 
+    def daily_email(user)
+        mail(to: user.email, subject: "The Daily Puzzles")
+    end
+
 end
