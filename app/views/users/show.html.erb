@@ -26,7 +26,8 @@
         <% end %>
         <% if @user == User.current %>
             <p><strong><%= link_to 'Edit Profile', edit_user_registration_path %></strong></p>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#manageprefsmodal">Manage Email Preferences</button>
+            <p><strong><a href="#" data-toggle="modal" data-target="#manageprefsmodal">Manage Email Preferences</a></strong></p>
+
         <% end %>
     </div>
     <div class="col-md-6 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0 col-lg-4">

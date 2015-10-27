@@ -71,6 +71,6 @@ class WikiracesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wikirace_params
-      params.require(:wikirace).permit(:start, :end, :racedate, :start_description, :end_description)
+      params.require(:wikirace).permit(:start, :end, :racedate, :start_description, :end_description, :first_article, :second_article)
     end
 end
