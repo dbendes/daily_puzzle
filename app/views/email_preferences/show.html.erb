@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Marketing:</strong>
+  <%= @email_preference.marketing %>
+</p>
+
+<p>
+  <strong>Daily:</strong>
+  <%= @email_preference.daily %>
+</p>
+
+<p>
+  <strong>Weekly:</strong>
+  <%= @email_preference.weekly %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @email_preference.user %>
+</p>
+
+<%= link_to 'Edit', edit_email_preference_path(@email_preference) %> |
+<%= link_to 'Back', email_preferences_path %>

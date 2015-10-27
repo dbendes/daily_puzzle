@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :email_preferences
+
   resources :wikiraces
 
   resources :group_invites

@@ -5,7 +5,7 @@
     <h5><%= @game.description %></h5>
     <% if @game.id == 2 and not @wikirace.blank? %>
       <% # ITS A WIKIRACE # %>
-      <p class="lead">Today's Wikirace is from <strong><%= @wikirace.start %></strong>, <%= @wikirace.start_description %>, to <strong><%= @wikirace.end %></strong>, <%= @wikirace.end_description %>.</p>
+      <p class="lead">Today's Wikirace is from <% if @wikirace.first_article %>the <% end %><strong><%= @wikirace.start %></strong>, <%= @wikirace.start_description %>, to <% if @wikirace.second_article %>the <% end %><strong><%= @wikirace.end %></strong>, <%= @wikirace.end_description %>.</p>
     <% end %>
     <a class="btn btn-success btn" onclick="window.open('<%= @game.iframe %>', 'newwindow', <% if game.id==1 %>'width=670, height=500'<% else %>'width=850, height=800'<% end %> ); return false;" role="button"  data-toggle="collapse" href="#pastescore" aria-expanded="false" aria-controls="#pastescore">Try Today's Puzzle!</a>
     <a class="btn btn-info btn"  role="button" data-toggle="collapse" href="#howtoplay" aria-expanded="false" aria-controls="#howtoplay">Learn to Play!</a>

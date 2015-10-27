@@ -29,7 +29,7 @@ class GroupInvitesController < ApplicationController
 
     respond_to do |format|
       if @group_invite.save
-        format.html { redirect_to @group_invite, notice: 'Group invite was successfully created.' }
+        #format.html { redirect_to @group_invite, notice: 'Group invite was successfully created.' }
         format.json { render :show, status: :created, location: @group_invite }
       else
         format.html { render :new }

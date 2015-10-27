@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
   has_many :invitations, :class_name => self.to_s, :as => :invited_by
+  has_one :email_preference
 
   has_attached_file :avatar,
     :styles => { :medium => "200x200>", :thumb => "100x100#" },
@@ -25,6 +26,13 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
  after_create :add_to_groups
+ after_create :create_email_prefs
+
+  def create_email_prefs
+    pref = EmailPreference.create
+    self.email_preference = pref
+    self.save
+  end
 
   def full_name
     self.first + " " + self.last

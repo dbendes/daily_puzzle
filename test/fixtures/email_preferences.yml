@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  marketing: false
+  daily: false
+  weekly: false
+  user_id: 
+
+two:
+  marketing: false
+  daily: false
+  weekly: false
+  user_id: 

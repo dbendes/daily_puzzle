@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926183141) do
+ActiveRecord::Schema.define(version: 20151027021328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "email_preferences", force: :cascade do |t|
+    t.boolean  "marketing",  default: true
+    t.boolean  "daily",      default: true
+    t.boolean  "weekly",     default: true
+    t.integer  "user_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "email_preferences", ["user_id"], name: "index_email_preferences_on_user_id", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.string   "name"
@@ -115,10 +126,13 @@ ActiveRecord::Schema.define(version: 20150926183141) do
     t.date     "racedate"
     t.text     "start_description"
     t.text     "end_description"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "first_article",     default: false
+    t.boolean  "second_article",    default: false
   end
 
+  add_foreign_key "email_preferences", "users"
   add_foreign_key "group_invites", "groups"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
