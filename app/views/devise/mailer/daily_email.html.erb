@@ -1,6 +1,6 @@
 <p>Hi <%= @user.first %>,</p>
 
-<p>Happy <%= Time.strftime("%A") %>!</p>
+<p>Happy <%= Date.today.strftime("%A") %>!</p>
 
 <p>Head to the <%= link_to root_path do %>games page<% end %> to try today's puzzles.</p>
 
