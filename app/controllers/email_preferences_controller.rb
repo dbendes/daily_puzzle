@@ -1,8 +1,6 @@
 class EmailPreferencesController < ApplicationController
   before_action :set_email_preference, only: [:show, :edit, :update, :destroy]
 
-  belongs_to :user
-
   # GET /email_preferences
   # GET /email_preferences.json
   def index

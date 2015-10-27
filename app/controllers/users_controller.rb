@@ -6,5 +6,6 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         @games = Game.all
         @groupinvites = GroupInvite.where(email: User.current.email)
+        @email_preference = @user.email_preference
     end
 end
