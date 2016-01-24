@@ -59,6 +59,13 @@ class ScoresController < ApplicationController
     end
     @score.value = score_float
 
+    yesterday_score = Score.where(user_id: @score.user_id).where(game_id: @score.game_id).where(date: (@score.date - 1.day))
+    if yesterday_score.exists?
+        @score.streak = yesterday_score.streak + 1
+    else
+        @score.streak = 1
+    end
+
     respond_to do |format|
       if @score.save
         format.html { redirect_to root_path, notice: 'Thanks for playing!' }
@@ -103,6 +110,6 @@ class ScoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.require(:score).permit(:value, :game_id, :user_id, :date, :detail)
+      params.require(:score).permit(:value, :game_id, :user_id, :date, :detail, :streak)
     end
 end
