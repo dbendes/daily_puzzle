@@ -60,10 +60,20 @@ class ScoresController < ApplicationController
     @score.value = score_float
 
     @yesterday_score = Score.where(user_id: @score.user_id).where(game_id: @score.game_id).where(date: (@score.date - 1.day)).first
-    if @yesterday_score.exists?
-        @score.streak = @yesterday_score.streak + 1
-    else
+    puts @yesterday_score
+    if @yesterday_score.blank?
+        puts "the score didn't exist, set it as 1"
         @score.streak = 1
+    else
+        puts "score exists"
+        puts "the current streak (before new value set) is:"
+        puts @score.streak
+        puts "the old streak was:"
+        puts @yesterday_score.streak
+        @score.streak = @yesterday_score.streak + 1
+        puts "the new streak is now:"
+        puts @score.streak
+        sleep(1)
     end
 
     respond_to do |format|
