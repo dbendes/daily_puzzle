@@ -7,7 +7,6 @@ task update_historical_scores: :environment do
         if @new_score.blank?
             puts "the score didn't exist, set it as 1"
             score.streak = 1
-
         else
             puts "score exists"
             puts "the current streak (before new value set) is:"
@@ -18,8 +17,6 @@ task update_historical_scores: :environment do
             puts "the new streak is now:"
             puts score.streak
             sleep(1)
-
-
         end
         score.save
     end
