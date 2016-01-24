@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include Merit
+  has_merit
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
@@ -10,6 +13,8 @@ class User < ActiveRecord::Base
   has_many :groups, through: :memberships
   has_many :invitations, :class_name => self.to_s, :as => :invited_by
   has_one :email_preference
+
+
 
   has_attached_file :avatar,
     :styles => { :medium => "200x200>", :thumb => "100x100#" },

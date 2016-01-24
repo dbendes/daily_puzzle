@@ -1,4 +1,9 @@
 <%= render 'jumbotron' %>
+<ul>
+  <% User.current.badges.each do |badge| %>
+    <li><%= badge.name %></li>
+  <% end %>
+</ul>
 <div class="container">
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
@@ -15,3 +20,4 @@
 
 </div>
 </div>
+

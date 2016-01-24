@@ -1,5 +1,6 @@
 class RegistrationsEmailController < Devise::RegistrationsController
     def create
+        @user = build_resource # Needed for Merit
         super
         if @user.persisted? && @user.errors.empty?
             invites = GroupInvite.find_by_email(@user.email)
@@ -11,5 +12,9 @@ class RegistrationsEmailController < Devise::RegistrationsController
             end
             UserMailer.welcome_email(@user).deliver
         end
+    end
+    def update
+        @user = resource # Needed for Merit
+        super
     end
 end
