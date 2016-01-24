@@ -19,5 +19,6 @@ task update_historical_scores: :environment do
             sleep(1)
         end
         score.save
+        sleep(2)
     end
 end
