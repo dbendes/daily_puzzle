@@ -5,9 +5,13 @@ task update_historical_scores: :environment do
         @new_score = Score.where(user_id: score.user_id).where(game_id: score.game_id).where(date: (score.date - 1.day))
         if @new_score.exists?
             puts "score exists"
+            puts "the current streak (before new value set) is:"
+            puts score.streak
             puts "the old streak was:"
-            puts @score.streak
+            puts @new_score.streak
             score.streak = @new_score.streak + 1
+            puts "the new streak is now:"
+            puts score.streak
             sleep(1)
         else
             puts "the score didn't exist, set it as 1"
