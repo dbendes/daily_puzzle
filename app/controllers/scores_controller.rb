@@ -59,9 +59,9 @@ class ScoresController < ApplicationController
     end
     @score.value = score_float
 
-    yesterday_score = Score.where(user_id: @score.user_id).where(game_id: @score.game_id).where(date: (@score.date - 1.day))
-    if yesterday_score.exists?
-        @score.streak = yesterday_score.streak + 1
+    @yesterday_score = Score.where(user_id: @score.user_id).where(game_id: @score.game_id).where(date: (@score.date - 1.day)).first
+    if @yesterday_score.exists?
+        @score.streak = @yesterday_score.streak + 1
     else
         @score.streak = 1
     end
