@@ -1,7 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :authorize_admin, only: [:edit, :update, :destroy]
 
   # GET /games
   # GET /games.json
