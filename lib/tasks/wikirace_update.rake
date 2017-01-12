@@ -7,6 +7,7 @@ task wikirace_update: :environment do
             if not @new_wikirace.blank?
                 # if the new wikirace exists, change the date of it
                 @new_wikirace.racedate = Date.today
+                @new_wikirace.save
             end
         end
 end
