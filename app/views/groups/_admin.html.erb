@@ -77,14 +77,28 @@
       </div>
       <hr>
       <div class="second-modal">
-        <% if @groupinvites.length + @membershipinvites.length > 0 %>
+        <% if @groupinvites.length + @membershipinvites.length + @groupinvites_notuser.length> 0 %>
           <h4 class="text-center">Awaiting Response</h4>
-            <% @groupinvites.each do |pending| %>
-              <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago</p>
-            <% end %>
+          <% if @groupinvites.length > 0 %>
+            <h5>Current Puzzlers</h5>
+              <% @groupinvites.each do |pending| %>
+                <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago <%= button_to "Rescind Invitation", {:controller => :group_invites,
+      :action => 'destroy', :id => pending.id }, :method => :delete %></p>
+              <% end %>
+          <% end %>
+          <% if @membershipinvites.length + @groupinvites_notuser.length > 0 %>
+            <h5>Potential Challengers</h5>
             <% @membershipinvites.each do |pending| %>
-              <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago </p>
+            <% u = User.find(pending.user_id) %>
+              <p><%= User.find(pending.user_id).email %> - <%= time_ago_in_words(pending.updated_at) %> ago <%= button_to "Rescind Invitation", {:controller => :memberships,
+      :action => 'destroy', :id => pending.id }, :method => :delete %></p>
             <% end %>
+
+            <% @groupinvites_notuser.each do |pending| %>
+              <p><%= pending.email %> - <%= time_ago_in_words(pending.updated_at) %> ago <%= button_to "Rescind Invitation", {:controller => :group_invites,
+      :action => 'destroy', :id => pending.id }, :method => :delete %></p>
+            <% end %>
+          <% end %>
         <% else %>
           <h4 class="text-center">No Invitations Outstanding</h4>
         <% end %>

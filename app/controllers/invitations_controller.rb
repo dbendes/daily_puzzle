@@ -48,10 +48,19 @@ class InvitationsController < Devise::InvitationsController
         respond_with_navigational(resource) { render :new }
       end
     else
-      #user exists, add to group
-      #send existing user the message
-      UserMailer.group_invitation(user, group).deliver
-      respond_with resource, :location => after_invite_path_for(current_inviter)
+      #user exists
+      # but does user really exist? see if nil firstname
+      # if nil firstname, need to re-invite, add to group
+      if user.first.nil?
+        #user is just an invite - trigger the email
+        token = user.invitation_token
+        UserMailer.invitation_instructions(user,token).deliver
+        respond_with resource, :location => after_invite_path_for(current_inviter)
+      else
+        #send existing user the message
+        UserMailer.group_invitation(user, group).deliver
+        respond_with resource, :location => after_invite_path_for(current_inviter)
+      end
     end
 
   end

@@ -27,8 +27,10 @@ class GroupsController < ApplicationController
         else
           @membership = Membership.where(user_id: current_user.id).where(group_id: @group.id)
         end
-        @groupinvites = GroupInvite.where(group_id: @group.id)
-        @membershipinvites = User.where(first: nil).joins(:groups).where("groups.id = ?", @group.id)
+        @groupinvites_notuser = GroupInvite.joins("INNER JOIN users ON users.email = group_invites.email").where("users.first" => nil).where(group_id: @group.id)
+        @membershipinvites =  Membership.joins(:user).where("users.first" => nil).where(group_id: @group.id)
+        @groupinvites = GroupInvite.joins("INNER JOIN users ON users.email = group_invites.email").where.not("users.first" => nil).where(group_id: @group.id)
+        #User.where(first: nil).joins(:groups).where("groups.id = ?", @group.id)
   end
 
   # GET /groups/new
