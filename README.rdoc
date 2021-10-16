@@ -1,28 +1,15 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+DailyPuzzl.es
 
-Things you may want to cover:
+DailyPuzzl.es is a site that allows friends to compete in short daily puzzles.
 
-* Ruby version
+Sometimes your brain needs a pick-me-up. We've got you covered. Every game has a different puzzle each day, and you can challenge your friends to see who's the best. You can also track your score history and watch yourself get better, and you can see how the rest of the world is doing on the leaderboard.
 
-* System dependencies
+The primary thesis is that people like to compete to better themselves, a la FitBit challenges, and that users will engage with a platform that lets them do that across other betterment-focused competitive mediums.
 
-* Configuration
+The site is available as a functional MVP at DailyPuzzl.es.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Current Versions:
+Ruby: 2.7.4
+Rails: 6.1.4
