@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -23,9 +22,8 @@ ActiveRecord::Schema.define(version: 20160124032320) do
     t.integer  "user_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.index ["user_id"], name: "index_email_preferences_on_user_id", using: :btree
   end
-
-  add_index "email_preferences", ["user_id"], name: "index_email_preferences_on_user_id", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.string   "name"
@@ -41,9 +39,8 @@ ActiveRecord::Schema.define(version: 20160124032320) do
     t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_invites_on_group_id", using: :btree
   end
-
-  add_index "group_invites", ["group_id"], name: "index_group_invites_on_group_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -66,24 +63,22 @@ ActiveRecord::Schema.define(version: 20160124032320) do
     t.integer  "user_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["group_id"], name: "index_memberships_on_group_id", using: :btree
+    t.index ["user_id"], name: "index_memberships_on_user_id", using: :btree
   end
-
-  add_index "memberships", ["group_id"], name: "index_memberships_on_group_id", using: :btree
-  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "scores", force: :cascade do |t|
     t.float    "value"
     t.date     "date"
     t.integer  "game_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "detail"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "detail",     default: " "
     t.integer  "streak"
+    t.index ["game_id"], name: "index_scores_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_scores_on_user_id", using: :btree
   end
-
-  add_index "scores", ["game_id"], name: "index_scores_on_game_id", using: :btree
-  add_index "scores", ["user_id"], name: "index_scores_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -105,21 +100,20 @@ ActiveRecord::Schema.define(version: 20160124032320) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.integer  "invited_by_id"
     t.integer  "invitations_count",      default: 0
     t.boolean  "admin",                  default: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
+    t.bigint   "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+    t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "wikiraces", force: :cascade do |t|
     t.string   "start"

@@ -8,7 +8,8 @@
       </div>
        <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { class: 'form-horizontal', :method => :post} do |f| %>
       <div class="modal-body">
-              <%= devise_error_messages! %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
 
             <% resource.class.invite_key_fields.each do |field| -%>
                 <div class="field form-group">

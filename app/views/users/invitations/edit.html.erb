@@ -3,7 +3,8 @@
 <h3 class="text-center">Fill out your Profile</h3>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html =>  { class: 'form-horizontal', method: :put } do |f| %>
-  <%= devise_error_messages! %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
   <%= f.hidden_field :invitation_token %>
 
 
