@@ -22,6 +22,7 @@ module PuzzleApp
     # config.web_console.whitelisted_ips = '184.153.75.239'
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # getting rid of this w/ rails upgrade
+    # config.active_record.raise_in_transactional_callbacks = true
   end
 end
